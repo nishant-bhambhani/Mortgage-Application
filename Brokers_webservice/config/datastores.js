@@ -51,7 +51,7 @@ module.exports.datastores = {
     
 
     adapter: 'sails-mysql',
-    url: 'mysql://amirul@dalamirul:sunes@ra3@dalamirul.mysql.database.azure.com:3306/boomassignment5',
+    url: 'mysql://cloud_project@teamboomcloudproject:TEAM@boom@teamboomcloudproject.mysql.database.azure.com:3306/cloud_project',
  
   
   },

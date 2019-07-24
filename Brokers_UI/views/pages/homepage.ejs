@@ -45,7 +45,7 @@
 
         $.ajax({
           type: "POST",
-          url: "https://team2-boom-brokerswebservice.azurewebsites.net/formSubmission",
+          url: "http://localhost:1337/formSubmission",
           data: JSON.stringify({ "Name": name, "Email": email, "Password": pass, "Address": address, "City": city, "Province": province, "Zip": zip, "Phoneno": phone, "CompanyName": strUser }),
           dataType: "json",
           contentType: "application/json",
