@@ -53,7 +53,7 @@
 
     $.ajax({
       type: "POST",
-      url: "https://team2-boom-brokerswebservice.azurewebsites.net/getStatus",
+      url: "http://localhost:1337/getStatus",
       data: JSON.stringify({ "AppNo": appno, "Password": pass }),
       dataType: "json",
       contentType: "application/json",
