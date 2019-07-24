@@ -1,0 +1,165 @@
+<head>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+    integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o"
+    crossorigin="anonymous"></script>
+  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js"></script>
+
+  <script type="text/javascript"
+    src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"> </script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $("#formAuth").submit(function (e) {
+        e.preventDefault();
+
+        console.log("Inside Function");
+
+        var name = document.getElementById("name").value;
+        var email = document.getElementById("email").value;
+        var pass = document.getElementById("password").value;
+        var address = document.getElementById("address").value;
+        var city = document.getElementById("city").value;
+        var province = document.getElementById("province").value;
+        var zip = document.getElementById("zip").value;
+        var phone = document.getElementById("phone").value;
+
+        var e = document.getElementById("companyname");
+        var strUser = e.options[e.selectedIndex].text;
+
+        console.log(strUser)
+
+
+        $.ajax({
+          type: "POST",
+          url: "https://team2-boom-brokerswebservice.azurewebsites.net/formSubmission",
+          data: JSON.stringify({ "Name": name, "Email": email, "Password": pass, "Address": address, "City": city, "Province": province, "Zip": zip, "Phoneno": phone, "CompanyName": strUser }),
+          dataType: "json",
+          contentType: "application/json",
+          crossDomain: true,
+          success: function (e) {
+            console.log(e);
+
+          }
+        });
+
+
+      });
+    });      
+  </script>
+</head>
+
+
+
+<nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">Broker's Portal</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
+
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+    </ul>
+    <ul class="navbar-nav">
+
+    </ul>
+  </div>
+</nav>
+
+
+<form name="brokerForm" id="brokerfunction" method="POST" action="/applicationstatus">
+  <fieldset>
+    <label>
+      <h2>Mortgage Application Form</h2>
+    </label>
+    <div class="form-group row">
+      <div class="col-md-4 mb-3">
+        <label>Name</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
+      </div>
+    </div>
+    </div>
+    <div class="form-group row">
+
+      <div class="col-md-4 mb-3">
+        <label>Email</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+      </div>
+    </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-4 mb-3">
+        <label>Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+      </div>
+    </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-4 mb-3">
+        <label>Address</label>
+        <input type="text" class="form-control" id="address" name="address" placeholder="Address" required>
+      </div>
+    </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-4 mb-3">
+        <label>City</label>
+        <input type="text" class="form-control" id="city" name="city" placeholder="City" required>
+      </div>
+    </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-4 mb-3">
+        <label>Province</label>
+        <input type="text" class="form-control" id="province" name="province" placeholder="Province" required>
+      </div>
+    </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-4 mb-3">
+        <label>Zip</label>
+        <input type="text" class="form-control" id="zip" name="zip" placeholder="Zip" required>
+      </div>
+
+    </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-4 mb-3">
+        <label>Phone no</label>
+        <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone no" required />
+      </div>
+    </div>
+    </div>
+
+
+    <div class="form-group row">
+      <div class="col-md-4 mb-3">
+        <label>Company Name</label></br>
+        <select class="custom-select" id="companyname">
+          <option selected value="1">Apple</option>
+          <option value="2">Amazon</option>
+          <option value="3">HP</option>
+        </select>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" onclick="datasend()">Submit</button>
+
+  </fieldset>
+</form>

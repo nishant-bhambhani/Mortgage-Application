@@ -1,0 +1,72 @@
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">Broker's Portal</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
+
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+    </ul>
+  </div>
+</nav>
+
+
+<form onsubmit="return login()" action="javascript:void(0)" ;>
+  <fieldset>
+    <label>
+      <h2>Check Application Status</h2>
+    </label>
+
+    <div class="form-group row">
+
+      <div class="col-md-4 mb-3">
+        <label>Application Number</label>
+        <input type="number" class="form-control" id="appno" name="appno" placeholder="Enter your application number"
+          required>
+        <div class="invalid-feedback">
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-4 mb-3">
+        <label>Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+      </div>
+    </div>
+    </div>
+
+    <div id="appstatus" style="color: green"></div>
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+  </fieldset>
+</form>
+<script type="text/javascript">
+  function login() {
+    console.log("Inside Function");
+
+    var appno = document.getElementById("appno").value;
+    var pass = document.getElementById("password").value;
+
+
+    $.ajax({
+      type: "POST",
+      url: "https://team2-boom-brokerswebservice.azurewebsites.net/getStatus",
+      data: JSON.stringify({ "AppNo": appno, "Password": pass }),
+      dataType: "json",
+      contentType: "application/json",
+      crossDomain: true,
+      async: false,
+      success: function (result) {
+        if (result['appstatus']) {
+          $("#appstatus").html(result.appstatus);
+        } else {
+          alert((result['Message']));
+        }
+      }
+    });
+
+  }
+</script>
