@@ -20,6 +20,10 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': { view: 'pages/homepage' },
+  '/requestAppraisal':'AppraisalRequestController.requestAppraisal',
+  '/listRequestAppraisal':'AppraisalRequestController.listRequestAppraisal',
+  '/listEvaluatedAppraisal':'AppraisalRequestController.listEvaluatedAppraisal',
+  '/evaluate':'AppraisalRequestController.evaluate',
 
 
   /***************************************************************************
