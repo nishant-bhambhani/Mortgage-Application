@@ -28,7 +28,7 @@
         return false; } 
         $.ajax({ 
           type: "POST" , 
-          url: "https://team2-boom-employerswebservice.azurewebsites.net/auth", 
+          url: "http://localhost:1337/auth", 
           data: JSON.stringify({"EmployeeId": emp_id.value, "Password" : password.value,"CompanyName": $('#droplist').val()}),
           dataType:"json", 
           contentType:"application/json", 

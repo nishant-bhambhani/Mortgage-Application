@@ -72,7 +72,7 @@ if(isValid)
 
   $.ajax({
       type: "POST",
-      url: "https://team2-boom-employerswebservice.azurewebsites.net/consent",
+      url: "http://localhost:1337/consent",
       data: JSON.stringify({"EmployeeId":employeeId,"CompanyName":companyName, "MortageNumber":mortageNumber, "CallBackURL":callBackURL,"Salary":salary,"EmploymentYears":employmentYears}),
       dataType:"json",
       contentType:"application/json",
