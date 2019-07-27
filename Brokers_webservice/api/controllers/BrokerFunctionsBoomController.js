@@ -9,7 +9,7 @@ module.exports = {
     
 
     formSubmissionBoom: function(req, res) {
-        if(req.param('Name') && req.param('Email') && req.param('Password') && req.param('Address') && req.param('City') && req.param('Province') && req.param('Zip') &&  req.param('Phoneno') && req.param('CompanyName') ) 
+        if(req.param('Name') && req.param('Email') && req.param('Password') && req.param('Address') && req.param('City') && req.param('Province') && req.param('Zip') &&  req.param('Phoneno') && req.param('Houseid') &&  req.param('Mortgagevalue') && req.param('CompanyName') ) 
         {
         var params = req.param('Name');
             Broker.create({
@@ -22,10 +22,12 @@ module.exports = {
                 applicationStatus: 'Submitted',
                 emp_city: req.param('City'),
                 emp_province: req.param('Province'),
-                emp_zip : req.param('Zip')
+                emp_zip : req.param('Zip'),
+                house_id: req.param('Houseid'),
+                mortgage_value: req.param('Mortgagevalue')
             }).then(Broker => {
                 sails.log.info(req.body)
-                res.ok("Ok request")
+                res.send("Submitted")
             }).catch(err => res.serverError(err))
         }
 
@@ -45,10 +47,6 @@ module.exports = {
                     Broker = Broker[0];
                 
                     console.log(Broker);
-
-                 
-
-                
                     if(Broker == undefined) { return res.json({"Message": "Wrong Application Number" })}
                     else if(Broker.emp_password !== req.param('Password')){
                         
