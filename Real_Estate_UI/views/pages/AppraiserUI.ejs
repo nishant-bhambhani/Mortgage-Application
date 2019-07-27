@@ -103,6 +103,8 @@ function loadEvaluatedAppraisalList(){
 function saveAppraiserInfo(val)
 {
  appraisalAmount = $('#txt'+val).val();
+ if(!isNaN(appraisalAmount) && appraisalAmount != "")
+ {
  $.ajax({
                 type: "POST",
                 url: "http://localhost:1337/evaluate",
@@ -111,12 +113,18 @@ function saveAppraiserInfo(val)
                 contentType: "application/json",
                 crossDomain: true,
                 success: function (obj) {
-                  alert("Successfully saved Appraisal Information");
+                  alert("Successfully saved appraisal information");
                   loadEvaluatedAppraisalList();
 
                 }
 
             });
+
+}
+else
+{
+  alert("Please enter a correct amount.");
+}
 
 }
 
