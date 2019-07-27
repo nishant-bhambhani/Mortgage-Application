@@ -36,6 +36,12 @@ module.exports = {
             return (res.json(items));
         });
     },
+    AppraisalStatus: async function(req, res) {
+  
+        AppraisalRequest.find().exec(function(err, items) {            
+            return (res.json(items));
+        });
+    },
     listEvaluatedAppraisal: async function(req, res) {
   
         AppraisalRequest.find({'status':'Evaluated'}).exec(function(err, items) {            

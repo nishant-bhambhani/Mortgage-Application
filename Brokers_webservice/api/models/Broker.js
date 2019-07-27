@@ -84,7 +84,16 @@ module.exports = {
 
     emp_duration:{
       type:"integer"
-    }
+    },
+
+    house_id:{
+      type:"integer"
+    },
+
+    mortgage_value:{
+      type:"integer"
+    },
+
   },
 
 };
