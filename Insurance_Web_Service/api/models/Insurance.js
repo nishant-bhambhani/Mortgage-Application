@@ -19,7 +19,7 @@ module.exports = {
 
   attributes: {
 
-    cname: {
+    customerName: {
       type: 'string'
     },
     
@@ -27,31 +27,24 @@ module.exports = {
       type: 'string'
     },
 
-    apno: {
+    appraisalValue: {
+      type: 'number'
+    },
+
+    insuranceStatus: { //
+      type: 'string'
+    },
+
+    insuredValue: { //
       type: 'number'
     },
     
-    dp: {
-      type: 'string'
-    },
-
-    iv: {
+    deductableValue: { //
       type: 'number'
     },
 
-    istatus: {
-      type: 'string'
-    },
-
-    ip: {
-      type: 'string'
-    },
-
-    itype: {
-      type: 'string'
-    },
-
-    pid: {
+   
+    propertyId: {
       type: 'string'
     }
   },

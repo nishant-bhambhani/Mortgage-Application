@@ -20,6 +20,9 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': { view: 'pages/homepage' },
+  'POST /addAppraisalInfo': 'IncControllerController.addAppraisalInfo',
+  'POST /addInsuranceDetails': 'IncControllerController.addInsuranceDetails'
+
 
 
   /***************************************************************************
