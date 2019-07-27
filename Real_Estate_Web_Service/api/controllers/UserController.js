@@ -11,7 +11,11 @@ module.exports = {
     login: async function(req, res) {
   
         
-        User.find({username:req.body.username}).exec(function(err, item) {            
+        User.find({username:req.body.username}).exec(function(err, item) {
+            if(item.length==0)
+            {
+                return res.json({ "response": "Invalid Password" });
+            }            
             
             if(item[0].password == req.body.password)
             {
