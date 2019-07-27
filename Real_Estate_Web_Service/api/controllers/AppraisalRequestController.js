@@ -44,15 +44,15 @@ module.exports = {
     },
     evaluate: async function(req, res) {
 
-        var msid = req.body.msid;
         var mortid = req.body.mortid;
+        var appraisalinfo = req.body.appraisalinfo;
         var status = 'Evaluated';
 
         var updatedRecord = await AppraisalRequest.update({
             where: {
                 mortid: mortid
             }
-        }).set({ status: status }).fetch();
+        }).set({ status: status,appraisalinfo:appraisalinfo,evaluatedBy:'adam'}).fetch();
         
         if(updatedRecord.length == 0)
         {
