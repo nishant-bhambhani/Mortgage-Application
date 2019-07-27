@@ -1,9 +1,8 @@
-<!--
-This is your default homepage.
-For more information, see:
-• https://sailsjs.com/documentation/concepts/views
-• https://sailsjs.com/documentation/concepts/routes
--->
+<!-- <div id="infopage"  v-cloak>
+
+  
+</div> -->
+<%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>
 
 <style type="text/css">
   form label {
@@ -41,7 +40,7 @@ For more information, see:
       <div class="navbar">
         <div class="pull-center">
           <a class="navbar-brand">
-            <span class="hidden-folded inline">Real Estate Broker</span>
+            <span class="hidden-folded inline">Client information page</span>
           </a>
         </div>
       </div>
@@ -54,11 +53,35 @@ For more information, see:
             <div class="col-sm-10 offset-sm-1">
               <div class="box col-sm-8 offset-sm-2" style="box-shadow: 0 1px 20px rgba(0, 0, 0, 0.35), 0 -1px 0 rgba(0, 0, 0, 0);">
                 <div class="box-header b-b">
-                  Login
+                  Info Details
                 </div>
                 <div class="box-body">
                   <div id="form">
-                    <form id="FormLoginInfo" name="FormLoginInfo">
+                    <form id="FormInfo" name="FormInfo">
+                      <div class="form-group row">
+                        <label for="MlsID" class="col-sm-2 offset-sm-2 col-form-label-sm text-right">Mls ID
+                          <span class="required">*</span> : </label>
+                        <div class="col-sm-5">
+                          <div class="input-group">
+                            <span class="input-group-addon">
+                              <i class="fa fa-user"></i>
+                            </span>
+                            <input type="text" class="form-control form-control-sm" name="MlsID" placeholder="Enter Ms ID">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="MortID" class="col-sm-2 offset-sm-2 col-form-label-sm text-right">Mort ID
+                          <span class="required">*</span> : </label>
+                        <div class="col-sm-5">
+                          <div class="input-group">
+                            <span class="input-group-addon">
+                              <i class="fa fa-user"></i>
+                            </span>
+                            <input type="text" class="form-control form-control-sm" name="MortID" placeholder="Enter Mort ID">
+                          </div>
+                        </div>
+                      </div>
                       <div class="form-group row">
                         <label for="UserName" class="col-sm-2 offset-sm-2 col-form-label-sm text-right">User Name
                           <span class="required">*</span> : </label>
@@ -67,35 +90,17 @@ For more information, see:
                             <span class="input-group-addon">
                               <i class="fa fa-user"></i>
                             </span>
-                            <input type="text" class="form-control form-control-sm" name="UserName" placeholder="UserName">
+                            <input type="text" class="form-control form-control-sm" name="UserName" placeholder="Enter User Name">
                           </div>
                         </div>
                       </div>
-                      <div class="form-group row">
-                        <label for="UserPWD" class="col-sm-2 offset-sm-2 col-form-label-sm text-right">Password
-                          <span class="required">*</span> : </label>
-                        <div class="col-sm-5">
-                          <div class="input-group">
-                            <span class="input-group-addon">
-                              <i class="fa fa-lock"></i>
-                            </span>
-                            <input type="password" name="UserPWD" class="form-control form-control-sm" placeholder="Password">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="m-b-md form-group row">
-                        <div class="col-sm-4 offset-sm-4">
-                            <label class="md-check">
-                                <input type="checkbox">
-                                <i class="primary"></i> Keep me signed in</label>
-                        </div>
-                      </div>
-                      <button type="submit" class="btn btn-lg black p-x-lg">Sign in
+                      
+                      <button type="submit" class="btn btn-lg black p-x-lg">Submit
                         <!-- <i *ngIf="loder" class="fa fa-spinner fa-spin"></i> -->
                       </button>
                     </form>
                     <div class="m-y">
-                      <a href="/infopage" class="_600">Redirect second page</a>
+                      <a href="/" class="_600">Log out</a>
                     </div>
                   </div>
                   <br>
@@ -114,29 +119,30 @@ For more information, see:
 <script type="text/javascript">
  
   $(document).ready(function () {
-    $("#FormLoginInfo").validate({
+    $("#FormInfo").validate({
       rules: {
+        MlsID: {
+          required: true,
+          number: true,
+        },
+        MortID: {
+          required: true,
+          number: true,
+        },
         UserName: {
           required: true,
-          // number: true,
         },
-        //UserPWD: 'required',
-        UserPWD: {
-          required: true,
-          minlength: 8,
-        }
       },
       messages: {
-        fname: {
+        MlsID: {
           required: 'This field is required',
           number: 'Enter only numeric value'
         },
-        lname: 'This field is required',
-        user_email: 'Enter a valid email',
-        UserPWD: {
+        MortID: {
           required: 'This field is required',
-          minlength: 'Password must be at least 8 characters long'
-        }
+          number: 'Enter only numeric value'
+        },
+        UserName: 'This field is required'
       },
       submitHandler: function (form) {
         //form.submit();
