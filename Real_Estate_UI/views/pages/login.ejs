@@ -83,9 +83,9 @@ $('#signIn').click(function(){
                 success: function (obj) {
                   if(obj != undefined && obj.response != "Invalid Password")
                   {
-                    if(obj.userType=="customer")
+                    if(obj[0].userType=="customer")
                     {
-                      window.location.href = window.location.origin+'/infopage.ejs';
+                      window.location.href = window.location.origin+'/infopage';
                     }
                     else
                     {
