@@ -18,9 +18,10 @@ module.exports.routes = {
   * `assets` directory)                                                      *
   *                                                                          *
   ***************************************************************************/
-
-  '/': { view: 'pages/homepage' },
-
+ 
+  '/AppraiserUI': { view: 'pages/AppraiserUI' },
+  '/': { view: 'pages/login' },
+  '/infopage': { view: 'pages/infopage' },
 
   /***************************************************************************
   *                                                                          *
