@@ -13,7 +13,7 @@
 </nav>
 
 
-<form onsubmit="return login()" action="javascript:void(0)" ;>
+<form onsubmit="return applicationStatus()" action="javascript:void(0)" ;>
   <fieldset>
     <label>
       <h2>Check Application Status</h2>
@@ -44,7 +44,7 @@
   </fieldset>
 </form>
 <script type="text/javascript">
-  function login() {
+  function applicationStatus() {
     console.log("Inside Function");
 
     var appno = document.getElementById("appno").value;
@@ -61,7 +61,7 @@
       async: false,
       success: function (result) {
         if (result['appstatus']) {
-          $("#appstatus").html(result.appstatus);
+          $("#appstatus").html("Application Status:"+ " " + result.appstatus);
         } else {
           alert((result['Message']));
         }

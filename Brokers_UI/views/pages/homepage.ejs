@@ -24,10 +24,7 @@
   <script type="text/javascript">
 
    function  insertBroker(){
-
-        console.log("Inside Function");
-
-        var name = document.getElementById("name").value;
+      var name = document.getElementById("name").value;
         var email = document.getElementById("email").value;
         var pass = document.getElementById("password").value;
         var address = document.getElementById("address").value;
@@ -40,23 +37,20 @@
         var e = document.getElementById("companyname");
         var strUser = e.options[e.selectedIndex].text;
 
-        console.log(strUser)
+        
 
-
+        if(name && email && pass && address && city && province && zip && phone && houseid && mortgagevalue && e &&strUser)
+        {
         $.ajax({
-          type: "POST",
-          url: "http://localhost:1337/formSubmission",
-          data: JSON.stringify({ "Name": name, "Email": email, "Password": pass, "Address": address, "City": city, "Province": province, "Zip": zip, "Phoneno": phone, "Mortgagevalue":mortgagevalue, "Houseid":houseid, "CompanyName": strUser }),
-          dataType: "json",
-          contentType: "application/json",
-          crossDomain: true,
-          success: function (e) {
-            console.log(e);
-
-          }
-        });
-
-
+            type: "POST",
+            url: "http://localhost:1337/formSubmission",
+            data: JSON.stringify({ "Name": name, "Email": email, "Password": pass, "Address": address, "City": city, "Province": province, "Zip": zip, "Phoneno": phone, "Mortgagevalue":mortgagevalue, "Houseid":houseid, "CompanyName": strUser }),
+            dataType: "json",
+            contentType: "application/json",
+            crossDomain: true,
+            success: function (e) {}
+          });
+        }
       }    
   </script>
 </head>
@@ -92,14 +86,15 @@
       </div>
     </div>
     </div>
-    <div class="form-group row">
 
+    <div class="form-group row">
       <div class="col-md-4 mb-3">
         <label>Email</label>
         <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
       </div>
     </div>
     </div>
+
     <div class="form-group row">
       <div class="col-md-4 mb-3">
         <label>Password</label>
@@ -115,6 +110,7 @@
       </div>
     </div>
     </div>
+
     <div class="form-group row">
       <div class="col-md-4 mb-3">
         <label>City</label>
@@ -122,6 +118,7 @@
       </div>
     </div>
     </div>
+
     <div class="form-group row">
       <div class="col-md-4 mb-3">
         <label>Province</label>
@@ -149,7 +146,7 @@
     <div class="form-group row">
       <div class="col-md-4 mb-3">
         <label>House ID</label>
-        <input type="number" class="form-control" id="houseid" name="houseid" placeholder="House ID" required />
+        <input type="number" class="form-control" id="houseid" name="houseid" placeholder="Enter 10 digit House ID" required />
       </div>
     </div>
     </div>
@@ -161,7 +158,6 @@
       </div>
     </div>
     </div>
-
 
     <div class="form-group row">
       <div class="col-md-4 mb-3">
