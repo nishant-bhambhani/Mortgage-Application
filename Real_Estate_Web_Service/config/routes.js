@@ -24,6 +24,7 @@ module.exports.routes = {
   '/listRequestAppraisal':'AppraisalRequestController.listRequestAppraisal',
   '/listEvaluatedAppraisal':'AppraisalRequestController.listEvaluatedAppraisal',
   '/evaluate':'AppraisalRequestController.evaluate',
+  '/login':'UserController.login',
 
 
   /***************************************************************************
