@@ -12,10 +12,11 @@ module.exports = {
         var empName = req.body.customerName;
         var insuredValue = req.body.insuredValue;
         var deductableValue = req.body.deductableValue;
+        var mortageNumber = req.body.mortid;
         var updatedRecord = await Broker.update({where: {  
        
            
-            emp_name:empName
+            id:mortageNumber
            
        
         }}).set({

@@ -8,33 +8,24 @@
 module.exports = {
 
     addAppraisalInfo: async function(req, res) {
-        if(req.body){
-            var statusBoolean = req.body.customerName && req.body.mortid && req.body.appraisalValue && req.body.propertyId;
-            if(!!statusBoolean){
-
+      
+    
                 var insurancePercentage = 40/100;
                 var decPercentage = 10/100;
-                var insVal = parseFloat(insurancePercentage) * req.body.appraisalValue;
+                var insVal = parseFloat(insurancePercentage) * req.body.appraisalinfo;
                 var decVal = parseFloat(decPercentage) * insVal;
 
                var record = await Insurance.create({
-                    customerName : req.body.customerName,
+                    customerName : req.body.firstname+' '+req.body.lastname,
                     mortid: req.body.mortid,
-                    appraisalValue: req.body.appraisalValue,
+                    appraisalValue: req.body.appraisalinfo,
                     insuredValue: insVal,
                     deductableValue: decVal,
-                    propertyId: req.body.propertyId,
+                    propertyId: req.body.msid,
                 }).fetch();
 
                 res.json(record);
 
-            } 
-            else {
-                res.badRequest('The request was not successful - Bad Request.');
-              }
-        }
-
-       
      
       },
     // addInsuranceDetails: async function(req, res){
@@ -45,7 +36,7 @@ module.exports = {
     //        console.log(parseFloat(insurancePercentage));
          
     //        var decPercentage = 10/100;
-    //        var insVal = parseFloat(insurancePercentage) * parseFloat(result[0]["appraisalValue"]);
+    //        var insVal = parseFloat(insurancePercentage) * parseFloat(result[0]["appraisalinfo"]);
     //        var decVal = parseFloat(decPercentage) * insVal;
     //        console.log(decVal);
     //        console.log(insVal);
