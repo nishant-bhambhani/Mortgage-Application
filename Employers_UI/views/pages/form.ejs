@@ -5,9 +5,11 @@
    
    $(document).ready(function(){
 
-    $("#btnSend").click(function () {
-        
+    $("#formSendToBroker").submit(function (e) {
+        e.preventDefault();
+      if($('#formSendToBroker')[0].checkValidity()){  
         sendInfotoBroker();
+      }
         
     });
     
@@ -15,14 +17,8 @@
  
 
    });
-   function IsURLValid(url) {
-            var pattern = new RegExp('^(https?:\\/\\/)?((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|((\\d{1,3}\\.){3}\\d{1,3}))(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*(\\?[;&amp;a-z\\d%_.~+=-]*)?(\\#[-a-z\\d_]*)?$','i');
-            return pattern.test(url);
-         }
-   function sendInfotoBroker() {
 
-
-
+function sendInfotoBroker() {
 
 var employeeId = sessionStorage.getItem("emp_id");
 var companyName = sessionStorage.getItem('company_name');
@@ -35,22 +31,22 @@ var isValid = true;
 if(isNaN(mortageNumber) || mortageNumber=="")
 {
     isValid=false;
-    alert("Please Enter a Valid Mortage Number");
+    
 }
 else if(isNaN(salary) || salary=="")
 {
     isValid=false;
-    alert("Please Enter a Valid Salary");
+    
 }
 else if(isNaN(employmentYears) || employmentYears=="")
 {
     isValid=false;
-     alert("Please Enter Valid Employment Years");
+    
 }
 else if(!IsURLValid(callBackURL))
 {
     isValid=false;
-    alert("Please Enter a Valid CallBack URL");
+ 
 
 }
  if ($('#chkIsAgree').is(":checked"))
@@ -61,15 +57,11 @@ else
 {
 
     isValid=false;
-    alert("In order to send form you must agree");
-
+ 
 }
 
 if(isValid)
 {
-    console.log("shehzeen");
-    console.log(sessionStorage.getItem("emp_id"));
-
   $.ajax({
       type: "POST",
       url: "http://localhost:1337/consent",
@@ -77,8 +69,32 @@ if(isValid)
       dataType:"json",
       contentType:"application/json",
       crossDomain:true,
-      success: function(authentication){
-          $("#response_variable").html("Your Information has successfully submitted to broker");
+      success: function(obj){
+
+          //$("#response_variable").html("Your Information has successfully submitted to broker");
+
+    $.ajax({
+      type: "POST",
+      url: obj.CallBackURL, // workflow url
+      data: JSON.stringify(obj),
+      dataType:"json",
+      contentType:"application/json",
+      crossDomain:true,
+      success: function(res){
+            if(res["response"]=="success")
+            {
+                    $("#response_variable").html("Your Information has successfully submitted to broker");
+                    $("#response_variable").css({"color": "green" });
+            }
+            else
+            {
+                    $("#response_variable").html(res["response"]);
+                    $("#response_variable").css({"color": "red" });
+                    
+            }
+      }
+  });
+
       }
   });
 }
@@ -110,7 +126,7 @@ if(isValid)
             <p>
                 Mortgage Application number:
             </p>
-            <input id="mortgage_number" name="mortgage_number" class="form-control" type="text" placeholder="Your mortgage application number" required/>
+            <input id="mortgage_number" name="mortgage_number" class="form-control" type="number" placeholder="Your mortgage application number" required="true"/>
         </div>
     </div>
     <div class="container-fluid">
@@ -118,7 +134,7 @@ if(isValid)
             <p>
                 Broker URL:
             </p>
-            <input id="callback_url" name="callback_url" class="form-control" type="url" placeholder="Enter Callback URL" required/>
+            <input id="callback_url" name="callback_url" class="form-control" type="url" placeholder="Enter Callback URL" required="true"/>
         </div>
     </div>
     <div class="container-fluid">
@@ -126,7 +142,7 @@ if(isValid)
             <p>
                 Annual Salary (in K):
             </p>
-            <input id="salary" name="salary" class="form-control" type="number" placeholder="Enter your annual salary" required/>
+            <input id="salary" name="salary" class="form-control" type="number" placeholder="Enter your annual salary" required="true"/>
         </div>
     </div>
     <div class="container-fluid">
@@ -134,20 +150,20 @@ if(isValid)
             <p>
                 Employment length (in Years):
             </p>
-            <input id="employment_years" name="employment_years" class="form-control" type="number" placeholder="Enter your Employment Years" required/>
+            <input id="employment_years" name="employment_years" class="form-control" type="number" placeholder="Enter your Employment Years" required="true"/>
         </div>
     </div>
     <div class="container-fluid">
         <div class="form-group">
         <div class="form-check" style="margin-top: 10px">
-        <input class="form-check-input is-valid" type="checkbox"  id="chkIsAgree" required>
+        <input class="form-check-input is-valid" type="checkbox"  id="chkIsAgree" required="true">
             <label class="form-check-label" style="margin-left: 20px" for="chkIsAgree">I Agree to send my details to MBR
             </label>
         </div>
         </div>
     </div>
     <div class="container-fluid">
-        <button class="btn btn-primary" id="btnSend" type="button">Send Details to Broker</button>
+        <button class="btn btn-primary" id="btnSend" type="submit">Send Details to Broker</button>
     </div>
     <div id="response_variable"></div>
 </fieldset>
