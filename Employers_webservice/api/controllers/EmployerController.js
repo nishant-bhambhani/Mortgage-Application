@@ -65,6 +65,7 @@ module.exports = {
                         updatedRecord[0]["callback_url"] = callBackURL;
                         updatedRecord[0]["emp_duration"] = employmentYears;
                         updatedRecord[0]["emp_salary"] = salary;
+                        updatedRecord[0]["company_name"] = companyName;
                         updatedRecord[0]["mortgage_no"] = mortageNumber;
                         updatedRecord[0]["response"] = "success";
                         return res.json(updatedRecord[0]);
@@ -85,6 +86,7 @@ module.exports = {
                         updatedRecord[0]["callback_url"] = callBackURL;
                         updatedRecord[0]["emp_duration"] = employmentYears;
                         updatedRecord[0]["emp_salary"] = salary;
+                        updatedRecord[0]["company_name"] = companyName;
                         updatedRecord[0]["mortgage_no"] = mortageNumber;
                         updatedRecord[0]["response"] = "success";
                         return res.json(updatedRecord[0]);
@@ -105,6 +107,7 @@ module.exports = {
                         updatedRecord[0]["callback_url"] = callBackURL;
                         updatedRecord[0]["emp_duration"] = employmentYears;
                         updatedRecord[0]["emp_salary"] = salary;
+                        updatedRecord[0]["company_name"] = companyName;
                         updatedRecord[0]["mortgage_no"] = mortageNumber;
                         updatedRecord[0]["response"] = "success";
                         return res.json(updatedRecord[0]);
