@@ -32,6 +32,10 @@ module.exports = {
       type: 'string'
     },
 
+    evaluatedBy: {
+      type: 'string'
+    },
+
 
 
   },
