@@ -14,8 +14,7 @@ module.exports = {
         req.param("Province") && req.param("Zip") && req.param("Phoneno") && req.param("Houseid") &&
         req.param("Mortgagevalue") && req.param("CompanyName")) 
         {
-          var params = req.param("Name");
-          Broker.create({
+          var params = {
             emp_name: req.param("Name"),
             emp_address: req.param("Address"),
             emp_phone: req.param("Phoneno"),
@@ -28,9 +27,10 @@ module.exports = {
             emp_zip: req.param("Zip"),
             house_id: req.param("Houseid"),
             mortgage_value: req.param("Mortgagevalue")
-          })
+          };
+          Broker.create(params)
           .then(Broker => {
-            res.send("Submitted");
+            res.ok();
           })
           .catch(err => res.serverError(err));
       } else {
@@ -41,22 +41,20 @@ module.exports = {
 
   getApplicationStatus: function(req, res) {
     if (req.param("AppNo") && req.param("Password")) {
-      var params = req.param("AppNo");
-
-      Broker.find({ id: params })
-        .then(function(Broker) {
+      var appno = req.param("AppNo");
+      Broker.find({ id: appno })
+        .then(function(Broker) 
+        {
           Broker = Broker[0];
 
           if (Broker == undefined) {
             return res.json({ Message: "Wrong Application Number" });
           }
-          bcrypt.compare(req.param("Password"), Broker.emp_password, function(
-            err,
-            valid
-          ) {
+
+          bcrypt.compare(req.param("Password"), Broker.emp_password, function(err,valid) 
+          {
             if (valid) {
-              var status = Broker.applicationStatus;
-              return res.send({ appstatus: status });
+              return res.send(Broker);
             } else {
               res.json({ Message: "Wrong Password" });
             }
