@@ -26,6 +26,7 @@ var mortageNumber = $("#mortgage_number").val();
 var callBackURL = $("#callback_url").val();
 var salary = $("#salary").val();
 var employmentYears = $("#employment_years").val();
+var  token = sessionStorage.getItem("verification_token");
 
 var isValid = true;
 if(isNaN(mortageNumber) || mortageNumber=="")
@@ -60,7 +61,7 @@ if(isValid)
   $.ajax({
       type: "POST",
       url: "http://localhost:1337/consent",
-      data: JSON.stringify({"EmployeeId":employeeId,"CompanyName":companyName, "MortageNumber":mortageNumber, "CallBackURL":callBackURL,"Salary":salary,"EmploymentYears":employmentYears}),
+      data: JSON.stringify({"token":token,"EmployeeId":employeeId,"CompanyName":companyName, "MortageNumber":mortageNumber, "CallBackURL":callBackURL,"Salary":salary,"EmploymentYears":employmentYears}),
       dataType:"json",
       contentType:"application/json",
       crossDomain:true,
