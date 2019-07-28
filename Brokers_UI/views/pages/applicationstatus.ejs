@@ -1,4 +1,3 @@
-<!-- Navigation Bar -->
 <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
   <a class="navbar-brand" href="#">Broker's Portal</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
@@ -40,9 +39,26 @@
     <div id="appstatus" style="color: green"></div>
     <br>
     <button type="submit" class="btn btn-primary">Submit</button>
-
+    <br>
+    <div class="tstyle">
+      <table class="table table-dark">
+          <thead>
+              <tr>
+              <th>Applicant Name</th>
+              <th>Mortgage ID</th>
+              <th>Application Status</th>
+              <th>House ID</th>
+              <th>Insured Amount</th>
+              <th>Deductible Amount</th>
+              </tr>
+          </thead>
+          <tbody id='tableBody'>
+          </tbody>
+      </table>
+    </div>
   </fieldset>
 </form>
+
 <script type="text/javascript">
   function applicationStatus() {
     console.log("Inside Function");
@@ -59,12 +75,30 @@
       contentType: "application/json",
       crossDomain: true,
       async: false,
-      success: function (result) {
-        if (result['appstatus']) {
-          $("#appstatus").html("Application Status:"+ " " + result.appstatus);
+      success: function (Broker) {
+
+        if(Broker["Message"] == "Wrong Password"){
+          alert("Invalid Password");
+        } else if(Broker["Message"] == "Wrong Application Number"){
+          alert("Invalid Application Number");
         } else {
-          alert((result['Message']));
+        if(Broker.insured_amount == 0){
+          var iamount="N/A";
+          
+        } else {
+          iamount = Broker.insured_amount;  
         }
+
+        if( Broker.deductible_amount == 0){
+          var damount = "N/A";
+        }
+        else {
+          damount = Broker.deductible_amount;
+        }
+          htmlRow = '<tr><td>'+Broker.emp_name+'</td><td>'+Broker.id+'</td><td>'+Broker.applicationStatus+'</td><td>'+Broker.house_id+'</td><td>'+iamount+'</td><td>'+damount+'</td>';
+              $("#tableBody").html(htmlRow);
+      
+      }
       }
     });
 
