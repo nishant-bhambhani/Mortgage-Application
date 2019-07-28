@@ -35,7 +35,10 @@
           crossDomain: true, 
             success: function (authentication) {
               if(authentication["Application Status"]=="Authoriztion approved" ) 
-                { sessionStorage.setItem("emp_id", emp_id.value);
+                { debugger;
+                  console.log(authentication.token);
+                  sessionStorage.setItem("verification_token", authentication.token);
+                  sessionStorage.setItem("emp_id", emp_id.value);
                   sessionStorage.setItem("company_name", $('#droplist').val()); window.location.replace("/formEmp"); } else{
                   alert(authentication.Message) } return false; console.log("Redirected"); } }); }); }); </script> </head> <body>
 
