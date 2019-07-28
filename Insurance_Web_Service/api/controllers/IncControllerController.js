@@ -36,14 +36,25 @@ module.exports = {
       },
     addInsuranceDetails: async function(req, res){
 
-        var updatedRecord = await Insurance.update({
+       var updateVal = await Insurance.find({ 'id': req.body.mortid }).then( async function (result) {
+           console.log(result);
+           var insurancePercentage = 40/100;
+           console.log(parseFloat(insurancePercentage));
+         
+           var decPercentage = 10/100;
+           var insVal = parseFloat(insurancePercentage) * parseFloat(result[0]["appraisalValue"]);
+           var decVal = parseFloat(decPercentage) * insVal;
+           console.log(decVal);
+           console.log(insVal);
+
+           var updatedRecord = await Insurance.update({
             where: {
 
                 mortid: req.body.mortid
             }
         }).set({ 
-            insuredValue : req.body.insuredValue,
-            deductableValue: req.body.deductableValue
+            insuredValue : insVal,
+            deductableValue: decVal
 
          }).fetch();
 
@@ -54,6 +65,12 @@ module.exports = {
         else {
             return res.json("Added the insurance details.");
         }
+        }).catch(function(err){
+            return res.badRequest('Mortgage Id isnot correct.');
+        })
+
+    
+       
         
     }
   
