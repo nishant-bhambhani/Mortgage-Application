@@ -65,7 +65,8 @@ module.exports = {
             return res.json({ "response": "error" });
         }
         else{
-            return res.json({ "response": "success" });
+            updatedRecord[0]["response"] = "success";
+            return res.json(updatedRecord);
         }
 
     },

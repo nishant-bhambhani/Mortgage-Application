@@ -128,7 +128,7 @@ function saveAppraiserInfo(val)
  appraisalAmount = $('#txt'+val).val();
  if(!isNaN(appraisalAmount) && appraisalAmount != "")
  {
- $.ajax({
+          $.ajax({
                 type: "POST",
                 url: "http://localhost:1337/evaluate",
                 dataType: "json",
@@ -136,11 +136,18 @@ function saveAppraiserInfo(val)
                 contentType: "application/json",
                 crossDomain: true,
                 success: function (obj) {
-                  $("#title").html("Success");
-                  $("#body").html("Successfully saved appraisal information");
-                  $("#validationModal").modal('show');
-                  loadEvaluatedAppraisalList();
 
+                  if(obj[0].response=="success")
+                {
+                    triggerWorkFlow(obj);
+
+                }
+                else{
+                    $("#title").html("Error");
+                    $("#body").html("Unable to connect to service");
+                    $("#validationModal").modal('show');
+                }
+                    
                 }
 
             });
@@ -151,6 +158,28 @@ else
   alert("Please enter a correct amount.");
 }
 
+}
+
+function triggerWorkFlow(obj)
+{
+  $.ajax({
+                      type: "POST",
+                      url: "http://localhost:1339/addAppraisalInfo", //workflow 2 url
+                      dataType: "json",
+                      data: JSON.stringify({"firstname" : obj[0].firstname,"lastname":obj[0].lastname,"mortid": obj[0].mortid,"appraisalinfo": obj[0].appraisalinfo,"msid": obj[0].msid}),
+                      contentType: "application/json",
+                      crossDomain: true,
+                      success: function (obj2) {
+
+
+                          $("#title").html("Success");
+                          $("#body").html("Successfully saved appraisal information");
+                          $("#validationModal").modal('show');
+                          loadEvaluatedAppraisalList();
+        
+                        }
+
+                      });
 }
 
             
