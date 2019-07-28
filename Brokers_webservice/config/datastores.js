@@ -52,14 +52,6 @@ module.exports.datastores = {
 
     adapter: 'sails-mysql',
     url: 'mysql://cloud_project@teamboomcloudproject:TEAM@boom@teamboomcloudproject.mysql.database.azure.com:3306/cloud_project',
-    // host: 'localhost',
-    // port:3306,
-    // user: 'root',
-    // password: 'password',
-    // database: 'demo'
-
-    // url: 'mysql://root:password@localhost:3306/project'
-  
   },
 };
 
