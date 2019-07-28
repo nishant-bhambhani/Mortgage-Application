@@ -69,16 +69,28 @@ if(isValid)
 {
     console.log("shehzeen");
     console.log(sessionStorage.getItem("emp_id"));
+    var  token = sessionStorage.getItem("verification_token");
 
   $.ajax({
       type: "POST",
       url: "http://localhost:1337/consent",
-      data: JSON.stringify({"EmployeeId":employeeId,"CompanyName":companyName, "MortageNumber":mortageNumber, "CallBackURL":callBackURL,"Salary":salary,"EmploymentYears":employmentYears}),
+      data: JSON.stringify({"token" : token, "EmployeeId":employeeId,"CompanyName":companyName, "MortageNumber":mortageNumber, "CallBackURL":callBackURL,"Salary":salary,"EmploymentYears":employmentYears}),
       dataType:"json",
       contentType:"application/json",
       crossDomain:true,
       success: function(authentication){
-          $("#response_variable").html("Your Information has successfully submitted to broker");
+          if(authentication.response == "success"){
+            $("#response_variable").html("Your Information has successfully submitted to broker");
+          }
+          else if(authentication.response == "The user is not verified"){
+            alert(authentication.response);
+            window.location.pathname = "/";
+
+          }
+          else{
+            alert(authentication.response);
+          }
+          
       }
   });
 }
