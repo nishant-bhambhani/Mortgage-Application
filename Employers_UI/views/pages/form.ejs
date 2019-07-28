@@ -43,12 +43,7 @@ else if(isNaN(employmentYears) || employmentYears=="")
     isValid=false;
     
 }
-else if(!IsURLValid(callBackURL))
-{
-    isValid=false;
- 
 
-}
  if ($('#chkIsAgree').is(":checked"))
 {
 
@@ -75,7 +70,7 @@ if(isValid)
 
     $.ajax({
       type: "POST",
-      url: obj.CallBackURL, // workflow url
+      url: obj.callback_url, // workflow url
       data: JSON.stringify(obj),
       dataType:"json",
       contentType:"application/json",
