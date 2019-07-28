@@ -94,6 +94,14 @@ module.exports = {
       type:"integer"
     },
 
+    insured_amount:{
+      type:"integer"
+    },
+
+    deductible_amount:{
+      type:"integer"
+    },
+
   },
 
 };
