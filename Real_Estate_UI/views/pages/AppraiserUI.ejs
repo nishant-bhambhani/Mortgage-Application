@@ -164,9 +164,9 @@ function triggerWorkFlow(obj)
 {
   $.ajax({
                       type: "POST",
-                      url: "https://prod-15.canadacentral.logic.azure.com:443/workflows/954952d0a268436fbe477eecd6833054/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=RJU_45P-aEzIvhsqp4C-BVbWI1zZ2vCelM7Y_oE3aXo", //workflow 2 url
+                      url: "https://prod-93.eastus.logic.azure.com/workflows/06977cbf03154f499197b66f2543fada/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=ISfT3Z2HDMwh3j_EfogoLeTSdEPmcT-ysfjlruBitZ8", //workflow 2 url
                       dataType: "json",
-                      data: JSON.stringify({"firstname" : obj[0].firstname,"lastname":obj[0].lastname,"mortid": obj[0].mortid,"appraisalinfo": obj[0].appraisalinfo,"msid": obj[0].msid}),
+                      data: JSON.stringify({"email":obj[0].email,"firstname" : obj[0].firstname,"lastname":obj[0].lastname,"mortid": obj[0].mortid,"appraisalinfo": obj[0].appraisalinfo,"msid": obj[0].msid,"customerName": obj[0].firstname+" "+obj[0].lastname,"propertyId":obj[0].msid}),
                       contentType: "application/json",
                       crossDomain: true,
                       success: function (obj2) {
