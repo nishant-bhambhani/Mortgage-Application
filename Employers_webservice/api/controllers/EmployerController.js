@@ -130,6 +130,19 @@ module.exports = {
       
     },
 
+    chkAuth: async function (req, res){
+        const jwt=require("jsonwebtoken");
+        var decoded;
+        try {
+            console.log("fin token1");
+            decoded = jwt.verify(req.body.token, "private_key");
+            return res.json({ "response": "success" });
+
+          } catch(err) {
+            console.log("fin token2");
+            return res.json({ "response": "The user is not verified" });
+          }
+    },
     loginAuthorization: async function (req, res) {
         debugger;
 
