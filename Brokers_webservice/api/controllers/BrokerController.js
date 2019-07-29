@@ -40,11 +40,6 @@ module.exports = {
         {
             return res.json({"response":"Invalid Mortage Number"});
         }
-    
-    
-
     },
-
-    
 };
 
