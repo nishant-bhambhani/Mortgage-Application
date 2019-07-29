@@ -171,6 +171,18 @@ function triggerWorkFlow(obj)
                       crossDomain: true,
                       success: function (obj2) {
 
+                        $.ajax({
+                      type: "POST",
+                      url: "http://localhost:1340/broker/brokerUpdate", //workflow 2 url
+                      dataType: "json",
+                      data: JSON.stringify(obj2),
+                      contentType: "application/json",
+                      crossDomain: true,
+                      success: function (obj3) {
+
+
+
+
 
                           $("#title").html("Success");
                           $("#body").html("Successfully saved appraisal information");
@@ -179,7 +191,12 @@ function triggerWorkFlow(obj)
         
                         }
 
-                      });
+      });
+                      
+        
+                        }
+
+      });
 }
 
             

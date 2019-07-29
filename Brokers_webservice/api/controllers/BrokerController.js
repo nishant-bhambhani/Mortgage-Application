@@ -17,7 +17,7 @@ module.exports = {
         var updatedRecord = await Broker.update({where: {  
        
            
-            emp_email:mortageNumber
+            id:mortageNumber
            
        
         }}).set({

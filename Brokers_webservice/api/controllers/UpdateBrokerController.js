@@ -27,11 +27,8 @@ module.exports = {
     
     }).fetch();
 
-        if(updatedRecord.length==0)
-        {
-            return res.json({"response":"Invalid Employee Name"});
-        }
-        else if(updatedRecord.length>0 && updatedRecord[0]["emp_name"]==empName)
+      
+        if(updatedRecord.length>0)
         {
             return res.json({"response":"success"});
         }
