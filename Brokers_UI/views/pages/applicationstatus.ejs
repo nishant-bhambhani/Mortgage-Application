@@ -1,26 +1,7 @@
-<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-      crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
-      integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o"
-      crossorigin="anonymous"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js"></script>
-  
-    <script type="text/javascript"
-      src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"> </script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"></script>
-</head>
 <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
   <a class="navbar-brand" href="#">Broker's Portal</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
@@ -50,13 +31,6 @@
         <div class="invalid-feedback">
         </div>
       </div>
-    </div>
-    <div class="form-group row">
-      <div class="col-md-4 mb-3">
-        <label>Password</label>
-        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
-      </div>
-    </div>
     </div>
 
     <div id="appstatus" style="color: green"></div>
@@ -89,46 +63,44 @@
   });
 
   function applicationStatus() {
-    console.log("Inside Function");
-    
-
     var appno = document.getElementById("appno").value;
-    var pass = document.getElementById("password").value;
-
-
     $.ajax({
       type: "POST",
       url: "http://localhost:1337/getStatus",
-      data: JSON.stringify({ "AppNo": appno, "Password": pass }),
+      data: JSON.stringify({"AppNo": appno}),
       dataType: "json",
       contentType: "application/json",
       crossDomain: true,
       async: false,
       success: function (Broker) {
 
-        if(Broker["Message"] == "Wrong Password"){
-          alert("Invalid Password");
-        } else if(Broker["Message"] == "Wrong Application Number"){
+        if(Broker["Message"] == "Wrong Application Number")
+        {
           alert("Invalid Application Number");
-        } else {
+        } 
+        else 
+        {
           $("#datatable").show()
-        if(Broker.insured_amount == 0){
-          var iamount="N/A";
-          
-        } else {
-          iamount = Broker.insured_amount;  
-        }
+          if(Broker.insured_amount == 0)
+          {
+            var iamount="N/A";
+          } 
+          else 
+          {
+            iamount = Broker.insured_amount;  
+          }
 
-        if( Broker.deductible_amount == 0){
-          var damount = "N/A";
+          if( Broker.deductible_amount == 0)
+          {
+            var damount = "N/A";
+          }
+          else 
+          {
+            damount = Broker.deductible_amount;
+          }
+            htmlRow = '<tr><td>'+Broker.emp_name+'</td><td>'+Broker.id+'</td><td>'+Broker.applicationStatus+'</td><td>'+Broker.house_id+'</td><td>'+iamount+'</td><td>'+damount+'</td>';
+                $("#tableBody").html(htmlRow);
         }
-        else {
-          damount = Broker.deductible_amount;
-        }
-          htmlRow = '<tr><td>'+Broker.emp_name+'</td><td>'+Broker.id+'</td><td>'+Broker.applicationStatus+'</td><td>'+Broker.house_id+'</td><td>'+iamount+'</td><td>'+damount+'</td>';
-              $("#tableBody").html(htmlRow);
-      
-      }
       }
     });
 
