@@ -23,7 +23,7 @@ module.exports = {
                     deductableValue: decVal,
                     propertyId: req.body.msid,
                 }).fetch();
-
+                record["response"]="success";
                 res.json(record);
 
      
