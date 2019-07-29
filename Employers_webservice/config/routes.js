@@ -21,7 +21,8 @@ module.exports.routes = {
 
   '/': { view: 'pages/homepage' },
   'POST /consent':'EmployerController.consent',
-  'POST /auth' : 'EmployerController.loginAuthorization' 
+  'POST /auth' : 'EmployerController.loginAuthorization' ,
+  'POST /chkAuth': 'EmployerController.chkAuth'
 
 
   /***************************************************************************
