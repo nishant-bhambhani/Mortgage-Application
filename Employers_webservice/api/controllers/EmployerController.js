@@ -65,6 +65,7 @@ module.exports = {
                         updatedRecord[0]["callback_url"] = callBackURL;
                         updatedRecord[0]["emp_duration"] = employmentYears;
                         updatedRecord[0]["emp_salary"] = salary;
+                        updatedRecord[0]["company_name"] = companyName;
                         updatedRecord[0]["mortgage_no"] = mortageNumber;
                         updatedRecord[0]["response"] = "success";
                         return res.json(updatedRecord[0]);
@@ -85,6 +86,7 @@ module.exports = {
                         updatedRecord[0]["callback_url"] = callBackURL;
                         updatedRecord[0]["emp_duration"] = employmentYears;
                         updatedRecord[0]["emp_salary"] = salary;
+                        updatedRecord[0]["company_name"] = companyName;
                         updatedRecord[0]["mortgage_no"] = mortageNumber;
                         updatedRecord[0]["response"] = "success";
                         return res.json(updatedRecord[0]);
@@ -105,6 +107,7 @@ module.exports = {
                         updatedRecord[0]["callback_url"] = callBackURL;
                         updatedRecord[0]["emp_duration"] = employmentYears;
                         updatedRecord[0]["emp_salary"] = salary;
+                        updatedRecord[0]["company_name"] = companyName;
                         updatedRecord[0]["mortgage_no"] = mortageNumber;
                         updatedRecord[0]["response"] = "success";
                         return res.json(updatedRecord[0]);
@@ -127,6 +130,19 @@ module.exports = {
       
     },
 
+    chkAuth: async function (req, res){
+        const jwt=require("jsonwebtoken");
+        var decoded;
+        try {
+            console.log("fin token1");
+            decoded = jwt.verify(req.body.token, "private_key");
+            return res.json({ "response": "success" });
+
+          } catch(err) {
+            console.log("fin token2");
+            return res.json({ "response": "The user is not verified" });
+          }
+    },
     loginAuthorization: async function (req, res) {
         debugger;
 

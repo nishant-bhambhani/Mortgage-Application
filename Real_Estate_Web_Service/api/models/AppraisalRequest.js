@@ -35,6 +35,10 @@ module.exports = {
     evaluatedBy: {
       type: 'string'
     },
+    
+    email: {
+      type: 'string'
+    },
 
 
 

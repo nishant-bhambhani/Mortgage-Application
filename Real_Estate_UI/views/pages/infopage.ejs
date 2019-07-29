@@ -20,6 +20,7 @@
               </li>
              
           </ul>
+          
         <ul class="navbar-nav mr-auto">
         </ul>
         <ul class="navbar-nav">
@@ -62,6 +63,10 @@
                       </div>
                       <div class="form-group">
                           <input type="text" class="form-control" id="LastName" placeholder="Last Name *" required="true">
+                          
+                        </div>
+                        <div class="form-group">
+                          <input type="email" class="form-control" id="email" placeholder="Email *" required="true">
                           
                         </div>
                    
@@ -125,6 +130,7 @@ function checkSubmission()
                     $('#FirstName').prop('disabled', true);
                     $('#LastName').prop('disabled', true);
                     $('#signIn').prop('disabled', true);
+                    $('#email').prop('disabled', true);
                     $("#subMsg").html("(Request already Submitted)");
                   }
 
@@ -188,7 +194,7 @@ $("#frmRequestQuote").submit(function(e){
                 type: "POST",
                 url: "http://localhost:1337/requestAppraisal",
                 dataType: "json",
-                data: JSON.stringify({ "msid": $("#MsID").val() ,"mortid":$("#MortID").val(),"firstname":$("#FirstName").val(),"lastname":$("#LastName").val() }),
+                data: JSON.stringify({ "email":$("#email").val(), "msid": $("#MsID").val() ,"mortid":$("#MortID").val(),"firstname":$("#FirstName").val(),"lastname":$("#LastName").val() }),
                 contentType: "application/json",
                 crossDomain: true,
                 success: function (obj) {

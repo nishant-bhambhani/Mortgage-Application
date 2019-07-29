@@ -83,10 +83,10 @@ function loadRequestAppraisalList(){
                 crossDomain: true,
                 success: function (obj) {
                   
-                  var strHtml = '<h1 class="text-center">Requested Appraisal</h1><hr/><table class="table table-bordered"><tr><th>MsID</th><th>Mortage ID</th><th>First Name</th><th>Last Name</th><th>Appraisal Information ($ amount)</th><th></th></tr>';
+                  var strHtml = '<h1 class="text-center">Requested Appraisal</h1><hr/><table class="table table-bordered"><tr><th>MsID</th><th>Mortage ID</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Appraisal Information ($ amount)</th><th></th></tr>';
                   for(i=0;i<obj.length;i++)
                   {
-                        strHtml = strHtml + '<tr><td>'+obj[i].msid+'</td><td>'+obj[i].mortid+'</td><td>'+obj[i].firstname+'</td><td>'+obj[i].lastname+'</td><td><input placeholder="Enter amount" id="txt'+obj[i].mortid+'" type="number" step="0.01" class="form-control"/></td><td><button type="button" class="btn btn-success" onclick="saveAppraiserInfo('+obj[i].mortid+')">Save</button></td><tr>';
+                        strHtml = strHtml + '<tr><td>'+obj[i].msid+'</td><td>'+obj[i].mortid+'</td><td>'+obj[i].firstname+'</td><td>'+obj[i].lastname+'</td><td>'+obj[i].email+'</td><td><input placeholder="Enter amount" id="txt'+obj[i].mortid+'" type="number" step="0.01" class="form-control"/></td><td><button type="button" class="btn btn-success" onclick="saveAppraiserInfo('+obj[i].mortid+')">Save</button></td><tr>';
                   }
                   strHtml = strHtml + "</html>";
                   $("#tableContent").html(strHtml);  
@@ -110,10 +110,10 @@ function loadEvaluatedAppraisalList(){
                 contentType: "application/json",
                 crossDomain: true,
                 success: function (obj) {
-                  var strHtml = '<h1 class="text-center">Evaluated Appraisal</h1><hr/><table class="table table-bordered"><tr><th>MsID</th><th>Mortage ID</th><th>First Name</th><th>Last Name</th><th>Appraisal Information ($ amount)</th><th>Evaluated By</th></tr>';
+                  var strHtml = '<h1 class="text-center">Evaluated Appraisal</h1><hr/><table class="table table-bordered"><tr><th>MsID</th><th>Mortage ID</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Appraisal Information ($ amount)</th><th>Evaluated By</th></tr>';
                   for(i=0;i<obj.length;i++)
                   {
-                        strHtml = strHtml + '<tr><td>'+obj[i].msid+'</td><td>'+obj[i].mortid+'</td><td>'+obj[i].firstname+'</td><td>'+obj[i].lastname+'</td><td>'+obj[i].appraisalinfo+'</td><td>'+obj[i].evaluatedBy+'</td><tr>';
+                        strHtml = strHtml + '<tr><td>'+obj[i].msid+'</td><td>'+obj[i].mortid+'</td><td>'+obj[i].firstname+'</td><td>'+obj[i].lastname+'</td><td>'+obj[i].email+'</td><td>'+obj[i].appraisalinfo+'</td><td>'+obj[i].evaluatedBy+'</td><tr>';
                   }
                   strHtml = strHtml + "</html>";
                   $("#tableContent").html(strHtml);  
@@ -128,7 +128,7 @@ function saveAppraiserInfo(val)
  appraisalAmount = $('#txt'+val).val();
  if(!isNaN(appraisalAmount) && appraisalAmount != "")
  {
- $.ajax({
+          $.ajax({
                 type: "POST",
                 url: "http://localhost:1337/evaluate",
                 dataType: "json",
@@ -136,11 +136,18 @@ function saveAppraiserInfo(val)
                 contentType: "application/json",
                 crossDomain: true,
                 success: function (obj) {
-                  $("#title").html("Success");
-                  $("#body").html("Successfully saved appraisal information");
-                  $("#validationModal").modal('show');
-                  loadEvaluatedAppraisalList();
 
+                  if(obj[0].response=="success")
+                {
+                    triggerWorkFlow(obj);
+
+                }
+                else{
+                    $("#title").html("Error");
+                    $("#body").html("Unable to connect to service");
+                    $("#validationModal").modal('show');
+                }
+                    
                 }
 
             });
@@ -151,6 +158,34 @@ else
   alert("Please enter a correct amount.");
 }
 
+}
+
+function triggerWorkFlow(obj)
+{
+  $.ajax({
+                      type: "POST",
+                      url: "https://prod-93.eastus.logic.azure.com/workflows/06977cbf03154f499197b66f2543fada/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=ISfT3Z2HDMwh3j_EfogoLeTSdEPmcT-ysfjlruBitZ8", //workflow 2 url
+                      dataType: "json",
+                      data: JSON.stringify({"email":obj[0].email,"firstname" : obj[0].firstname,"lastname":obj[0].lastname,"mortid": obj[0].mortid,"appraisalinfo": obj[0].appraisalinfo,"msid": obj[0].msid,"customerName": obj[0].firstname+" "+obj[0].lastname,"propertyId":obj[0].msid}),
+                      contentType: "application/json",
+                      crossDomain: true,
+                      success: function (obj2) {
+                          if(obj2.response=="success"){
+                          $("#title").html("Success");
+                          $("#body").html("Successfully saved appraisal information");
+                          $("#validationModal").modal('show');
+                          loadEvaluatedAppraisalList();
+                          }
+                          else{
+                            $("#title").html("Error");
+                            $("#body").html("Unable to connect to service");
+                            $("#validationModal").modal('show');
+                         
+                          }
+                        
+                        }
+
+      });
 }
 
             

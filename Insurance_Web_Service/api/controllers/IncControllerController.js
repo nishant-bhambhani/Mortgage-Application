@@ -7,55 +7,67 @@
 
 module.exports = {
 
-    addAppraisalInfo: function(req, res) {
-        if(req.body){
-            var statusBoolean = req.body.customerName && req.body.mortid && req.body.appraisalValue && req.body.propertyId;
-            if(!!statusBoolean){
+    addAppraisalInfo: async function(req, res) {
+      
+    
+                var insurancePercentage = 40/100;
+                var decPercentage = 10/100;
+                var insVal = parseFloat(insurancePercentage) * req.body.appraisalinfo;
+                var decVal = parseFloat(decPercentage) * insVal;
 
-                Insurance.create({
-                    customerName : req.body.customerName,
+               var record = await Insurance.create({
+                    customerName : req.body.firstname+' '+req.body.lastname,
                     mortid: req.body.mortid,
-                    appraisalValue: req.body.appraisalValue,
-                    insuranceStatus: "Pending",
-                    insuredValue: 0,
-                    deductableValue: 0,
-                    propertyId: req.body.propertyId,
-                }).then(Insurance => {
-                 
-                    return res.ok("Appraisal details successfully submitted.");
-                }).catch(err => res.serverError(err));
+                    appraisalValue: req.body.appraisalinfo,
+                    insuredValue: insVal,
+                    deductableValue: decVal,
+                    propertyId: req.body.msid,
+                }).fetch();
+                record["response"]="success";
+                record["email"]=req.body.email;
+                res.json(record);
 
-            } 
-            else {
-                res.badRequest('The request wasnot successful - Bad Request.');
-              }
-        }
-
-       
      
       },
-    addInsuranceDetails: async function(req, res){
+    // addInsuranceDetails: async function(req, res){
 
-        var updatedRecord = await Insurance.update({
-            where: {
+    //    var updateVal = await Insurance.find({ 'id': req.body.mortid }).then( async function (result) {
+    //        console.log(result);
+    //        var insurancePercentage = 40/100;
+    //        console.log(parseFloat(insurancePercentage));
+         
+    //        var decPercentage = 10/100;
+    //        var insVal = parseFloat(insurancePercentage) * parseFloat(result[0]["appraisalinfo"]);
+    //        var decVal = parseFloat(decPercentage) * insVal;
+    //        console.log(decVal);
+    //        console.log(insVal);
 
-                mortid: req.body.mortid
-            }
-        }).set({ 
-            insuredValue : req.body.insuredValue,
-            deductableValue: req.body.deductableValue
+    //        var updatedRecord = await Insurance.update({
+    //         where: {
 
-         }).fetch();
+    //             mortid: req.body.mortid
+    //         }
+    //     }).set({ 
+    //         insuredValue : insVal,
+    //         deductableValue: decVal
 
-         if (updatedRecord.length == 0) {
-            return res.badRequest('Mortgage Id isnot correct.');
+    //      }).fetch();
+
+    //      if (updatedRecord.length == 0) {
+    //         return res.badRequest('Mortgage Id isnot correct.');
            
-        }
-        else {
-            return res.json("Added the insurance details.");
-        }
+    //     }
+    //     else {
+    //         return res.json("Added the insurance details.");
+    //     }
+    //     }).catch(function(err){
+    //         return res.badRequest('Mortgage Id isnot correct.');
+    //     })
+
+    
+       
         
-    }
+    // }
   
 
 };
