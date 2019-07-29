@@ -13,6 +13,7 @@ module.exports = {
         var mortid = req.body.mortid;
         var firstname = req.body.firstname;
         var lastname = req.body.lastname;
+        var email = req.body.email;
         var status = 'Requested';
 
         AppraisalRequest.create({
@@ -20,7 +21,8 @@ module.exports = {
             mortid : mortid,
             firstname : firstname,
             lastname : lastname,
-            status : status
+            status : status,
+            email:email
            
         }).then(AppraisalRequest => {
             return res.json({ "response": "success" });

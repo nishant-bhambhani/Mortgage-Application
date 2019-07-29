@@ -83,10 +83,10 @@ function loadRequestAppraisalList(){
                 crossDomain: true,
                 success: function (obj) {
                   
-                  var strHtml = '<h1 class="text-center">Requested Appraisal</h1><hr/><table class="table table-bordered"><tr><th>MsID</th><th>Mortage ID</th><th>First Name</th><th>Last Name</th><th>Appraisal Information ($ amount)</th><th></th></tr>';
+                  var strHtml = '<h1 class="text-center">Requested Appraisal</h1><hr/><table class="table table-bordered"><tr><th>MsID</th><th>Mortage ID</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Appraisal Information ($ amount)</th><th></th></tr>';
                   for(i=0;i<obj.length;i++)
                   {
-                        strHtml = strHtml + '<tr><td>'+obj[i].msid+'</td><td>'+obj[i].mortid+'</td><td>'+obj[i].firstname+'</td><td>'+obj[i].lastname+'</td><td><input placeholder="Enter amount" id="txt'+obj[i].mortid+'" type="number" step="0.01" class="form-control"/></td><td><button type="button" class="btn btn-success" onclick="saveAppraiserInfo('+obj[i].mortid+')">Save</button></td><tr>';
+                        strHtml = strHtml + '<tr><td>'+obj[i].msid+'</td><td>'+obj[i].mortid+'</td><td>'+obj[i].firstname+'</td><td>'+obj[i].lastname+'</td><td>'+obj[i].email+'</td><td><input placeholder="Enter amount" id="txt'+obj[i].mortid+'" type="number" step="0.01" class="form-control"/></td><td><button type="button" class="btn btn-success" onclick="saveAppraiserInfo('+obj[i].mortid+')">Save</button></td><tr>';
                   }
                   strHtml = strHtml + "</html>";
                   $("#tableContent").html(strHtml);  
@@ -110,10 +110,10 @@ function loadEvaluatedAppraisalList(){
                 contentType: "application/json",
                 crossDomain: true,
                 success: function (obj) {
-                  var strHtml = '<h1 class="text-center">Evaluated Appraisal</h1><hr/><table class="table table-bordered"><tr><th>MsID</th><th>Mortage ID</th><th>First Name</th><th>Last Name</th><th>Appraisal Information ($ amount)</th><th>Evaluated By</th></tr>';
+                  var strHtml = '<h1 class="text-center">Evaluated Appraisal</h1><hr/><table class="table table-bordered"><tr><th>MsID</th><th>Mortage ID</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Appraisal Information ($ amount)</th><th>Evaluated By</th></tr>';
                   for(i=0;i<obj.length;i++)
                   {
-                        strHtml = strHtml + '<tr><td>'+obj[i].msid+'</td><td>'+obj[i].mortid+'</td><td>'+obj[i].firstname+'</td><td>'+obj[i].lastname+'</td><td>'+obj[i].appraisalinfo+'</td><td>'+obj[i].evaluatedBy+'</td><tr>';
+                        strHtml = strHtml + '<tr><td>'+obj[i].msid+'</td><td>'+obj[i].mortid+'</td><td>'+obj[i].firstname+'</td><td>'+obj[i].lastname+'</td><td>'+obj[i].email+'</td><td>'+obj[i].appraisalinfo+'</td><td>'+obj[i].evaluatedBy+'</td><tr>';
                   }
                   strHtml = strHtml + "</html>";
                   $("#tableContent").html(strHtml);  

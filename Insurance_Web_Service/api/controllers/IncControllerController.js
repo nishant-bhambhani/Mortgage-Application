@@ -24,6 +24,7 @@ module.exports = {
                     propertyId: req.body.msid,
                 }).fetch();
                 record["response"]="success";
+                record["email"]=req.body.email;
                 res.json(record);
 
      
