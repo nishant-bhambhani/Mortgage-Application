@@ -1,61 +1,6 @@
-<head>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
-    integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o"
-    crossorigin="anonymous"></script>
-  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js"></script>
-
-  <script type="text/javascript"
-    src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"> </script>
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
-
-  <script type="text/javascript">
-
-   function  insertBroker(){
-      var name = document.getElementById("name").value;
-        var email = document.getElementById("email").value;
-        var pass = document.getElementById("password").value;
-        var address = document.getElementById("address").value;
-        var city = document.getElementById("city").value;
-        var province = document.getElementById("province").value;
-        var zip = document.getElementById("zip").value;
-        var phone = document.getElementById("phone").value;
-        var houseid=document.getElementById("houseid").value;
-        var mortgagevalue=document.getElementById("mortgagevalue").value;
-        var e = document.getElementById("companyname");
-        var strUser = e.options[e.selectedIndex].text;
-
-        
-
-        if(name && email && pass && address && city && province && zip && phone && houseid && mortgagevalue && e &&strUser)
-        {
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:1337/formSubmission",
-            data: JSON.stringify({ "Name": name, "Email": email, "Password": pass, "Address": address, "City": city, "Province": province, "Zip": zip, "Phoneno": phone, "Mortgagevalue":mortgagevalue, "Houseid":houseid, "CompanyName": strUser }),
-            dataType: "json",
-            contentType: "application/json",
-            crossDomain: true,
-            success: function (e) {}
-          });
-        }
-      }    
-  </script>
-</head>
-
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 
 <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
   <a class="navbar-brand" href="#">Broker's Portal</a>
@@ -68,13 +13,12 @@
     <ul class="navbar-nav mr-auto">
     </ul>
     <ul class="navbar-nav">
-
     </ul>
   </div>
 </nav>
 
 
-<form name="brokerForm" id="brokerfunction" method="POST" action="/applicationstatus">
+<form id="brokerForm">
   <fieldset>
     <label>
       <h2>Mortgage Application Form</h2>
@@ -132,9 +76,9 @@
         <label>Zip</label>
         <input type="text" class="form-control" id="zip" name="zip" placeholder="Zip" required>
       </div>
+    </div>
+    </div>
 
-    </div>
-    </div>
     <div class="form-group row">
       <div class="col-md-4 mb-3">
         <label>Phone no</label>
@@ -170,7 +114,71 @@
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary" onclick="insertBroker()">Submit</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
 
   </fieldset>
 </form>
+
+<div id="validationModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="title"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p id="body"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script type="text/javascript">
+
+
+  $("#brokerForm").submit(function(e) 
+  {
+    e.preventDefault();
+    if($('#brokerForm')[0].checkValidity())
+    {
+          var name = document.getElementById("name").value;
+          var email = document.getElementById("email").value;
+          var pass = document.getElementById("password").value;
+          var address = document.getElementById("address").value;
+          var city = document.getElementById("city").value;
+          var province = document.getElementById("province").value;
+          var zip = document.getElementById("zip").value;
+          var phone = document.getElementById("phone").value;
+          var houseid=document.getElementById("houseid").value;
+          var mortgagevalue=document.getElementById("mortgagevalue").value;
+          var e = document.getElementById("companyname");
+          var strUser = e.options[e.selectedIndex].text;
+  
+          if(name && email && pass && address && city && province && zip && phone && houseid && mortgagevalue && e &&strUser)
+          {
+          $.ajax({
+              type: "POST",
+              url: "http://localhost:1337/formSubmission",
+              data: JSON.stringify({ "Name": name, "Email": email, "Password": pass, "Address": address, "City": city, "Province": province, "Zip": zip, "Phoneno": phone, "Mortgagevalue":mortgagevalue, "Houseid":houseid, "CompanyName": strUser }),
+              dataType: "json",
+              contentType: "application/json",
+              crossDomain: true,
+              success: function (res) 
+              {
+                if(res.response == "success")
+                {
+                  $("#title").html("Sucessfully Registered!!!");
+                  $("#body").html("Mortgage Application Number: "+res.id);
+                  $("#validationModal").modal('show');
+                }
+              }
+            });
+          }
+    }
+  });
+</script>

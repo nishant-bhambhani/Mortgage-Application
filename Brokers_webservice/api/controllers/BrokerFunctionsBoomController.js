@@ -7,7 +7,7 @@
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 module.exports = {
-  formSubmissionBoom: function(req, res) {
+  formSubmissionBoom: async function(req, res) {
     bcrypt.hash(req.param("Password"), saltRounds, function(err,hashedPassword) 
     {
       if (req.param("Name") && req.param("Email") && req.param("Password") && req.param("Address") && req.param("City") &&
@@ -29,8 +29,8 @@ module.exports = {
             mortgage_value: req.param("Mortgagevalue")
           };
           Broker.create(params)
-          .then(Broker => {
-            res.ok();
+          .then(Broker =>{ 
+            return  res.json({"response": "success" , id : Broker.id });
           })
           .catch(err => res.serverError(err));
       } else {
@@ -40,25 +40,21 @@ module.exports = {
   },
 
   getApplicationStatus: function(req, res) {
-    if (req.param("AppNo") && req.param("Password")) {
+    if (req.param("AppNo")) {
       var appno = req.param("AppNo");
       Broker.find({ id: appno })
         .then(function(Broker) 
         {
           Broker = Broker[0];
 
-          if (Broker == undefined) {
+          if (Broker == undefined) 
+          {
             return res.json({ Message: "Wrong Application Number" });
           }
-
-          bcrypt.compare(req.param("Password"), Broker.emp_password, function(err,valid) 
+          else
           {
-            if (valid) {
-              return res.send(Broker);
-            } else {
-              res.json({ Message: "Wrong Password" });
-            }
-          });
+            return res.send(Broker);
+          }
         })
         .catch({ name: "UsageError" }, function(err) {
           return res.json(err);
