@@ -2,16 +2,24 @@
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 
-<nav class="navbar navbar-expand-sm navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">Broker's Portal</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
-    aria-expanded="false" aria-label="Toggle navigation">
 
+
+
+
+<nav class="navbar navbar-expand-sm navbar-dark bg-primary mb-4">
+  <a class="navbar-brand" href="/">Broker's Portal</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav mr-auto">
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Logout <span class="sr-only">(current)</span> </a>
+      </li>
+     
     </ul>
+  
   </div>
 </nav>
 
@@ -59,6 +67,25 @@
 <script type="text/javascript">
 
   $(document).ready(function() {
+    var  token = sessionStorage.getItem("broker_token");
+       $.ajax({
+      type: "POST",
+      url: "http://localhost:1337/chkAuth",
+      data: JSON.stringify({"token":token}),
+      dataType:"json",
+      contentType:"application/json",
+      crossDomain:true,
+      success: function(res){
+          if(res["response"] == "The user is not verified" ){
+          
+                   alert(res["response"]);
+                   window.location.pathname = "/";
+
+             
+          }
+      }
+    });
+
     $("#datatable").hide()
   });
 
