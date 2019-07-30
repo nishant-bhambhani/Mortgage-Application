@@ -23,9 +23,9 @@ module.exports.routes = {
   'POST /formSubmission': 'BrokerFunctionsBoomController.formSubmissionBoom',
   'POST /getStatus': 'BrokerFunctionsBoomController.getApplicationStatus',
   '/broker/consent':'BrokerController.consent',
-  '/broker/brokerUpdate':'UpdateBrokerController.updateBroker'
-
-
+  '/broker/brokerUpdate':'UpdateBrokerController.updateBroker',
+  'POST /auth' : 'BrokerFunctionsBoomController.loginAuthorization' ,
+  'POST /chkAuth': 'BrokerFunctionsBoomController.chkAuth'
   /***************************************************************************
   *                                                                          *
   * More custom routes here...                                               *

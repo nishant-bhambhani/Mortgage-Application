@@ -23,30 +23,27 @@
       $(document).ready(function(){ 
         $("#formAuth").submit(function(e){ 
           e.preventDefault(); 
-          var checkdropdown=document.getElementById("droplist").value; 
-          if (checkdropdown=="" ) { alert ("Please select Companyname!"); 
-          return false; } 
+         debugger;
           $.ajax({ 
             type: "POST" , 
             url: "http://localhost:1337/auth", 
-            data: JSON.stringify({"EmployeeId": emp_id.value, "Password" : password.value,"CompanyName": $('#droplist').val()}),
+            data: JSON.stringify({"app_no": app_no.value, "password" : password.value }),
             dataType:"json", 
             contentType:"application/json", 
             crossDomain: true, 
               success: function (authentication) {
-                if(authentication["Application Status"]=="Authoriztion approved" ) 
-                  { debugger;
+                if(authentication["Message"]=="Authoriztion approved" ) 
+                  { 
+                    alert(authentication.Message);
+                    sessionStorage.setItem("broker_token", authentication.token);
                     console.log(authentication.token);
-                    sessionStorage.setItem("verification_token", authentication.token);
-                    sessionStorage.setItem("emp_id", emp_id.value);
-                    // sessionStorage.setItem("company_name", $('#droplist').val()); 
-                    window.location.replace("/homepage"); 
+                    window.location.pathname = "/applicationstatus";
                 } else{
-                    alert(authentication.Message) } return false; console.log("Redirected"); } }); }); }); </script> </head> <body>
+                    alert(authentication.Message) } return false;  } }); }); }); </script> </head> <body>
   
                       
     <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
-      <a class="navbar-brand" href="#">MBR broker's Portal</a>
+      <a class="navbar-brand" href="#">Broker's Portal</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
   
@@ -62,12 +59,12 @@
           <div class="content-area-right">
             <div class="detail">
               <div class="formdetails">
-                <input id="emp_id" name="emp_id" class="form-control" type="text" placeholder="Your employee id"
+                <input id="app_no" name="app_no" class="form-control" type="text" placeholder="Your Application Number"
                 required="required" >
               </div>
               <div class="formdetails">
                 <input id="password" name="password" class="form-control" type="password" maxlength="8"
-                  placeholder="Your password" required="required" >
+                  placeholder="Your Password" required="required" >
               </div>
   
               <!-- <div class="formdetails">
