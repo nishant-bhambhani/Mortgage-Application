@@ -4,17 +4,14 @@
 
 <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
   <a class="navbar-brand" href="#">Broker's Portal</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
-    aria-expanded="false" aria-label="Toggle navigation">
-
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav mr-auto">
-    </ul>
-    <ul class="navbar-nav">
-    </ul>
-  </div>
+  <ul class="navbar-nav mr-auto">
+  </ul>
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="/login">Login</a>
+    </li>
+    
+  </ul>
 </nav>
 
 
@@ -132,7 +129,7 @@
           <p id="body"></p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+          <button type="button" id="btnOk" class="btn btn-secondary" data-dismiss="modal">Ok</button>
         </div>
       </div>
     </div>
@@ -140,6 +137,10 @@
 
 <script type="text/javascript">
 
+$("#btnOk").click(function(){
+                window.location.href = window.location.origin+'/login';
+
+});
 
   $("#brokerForm").submit(function(e) 
   {
@@ -172,8 +173,9 @@
               {
                 if(res.response == "success")
                 {
+                  console.log(res.data[res.data.length-1]['id']);
                   $("#title").html("Sucessfully Registered!!!");
-                  $("#body").html("Mortgage Application Number: "+res.id);
+                  $("#body").html("Mortgage Application Number: "+res.data[res.data.length-1]['id']);
                   $("#validationModal").modal('show');
                 }
               }

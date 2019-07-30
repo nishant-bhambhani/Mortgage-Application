@@ -25,6 +25,12 @@ module.exports = {
                 }).fetch();
                 record["response"]="success";
                 record["email"]=req.body.email;
+
+                sails.log.info(" Insert Appraisal data ==> " + "Firstname: " + req.body.firstname + "," + "Lastname: " + req.body.lastname
+                + "," + "Mortgage ID: " + req.body.mortid + "," + "Appraisal Amount: " + req.body.appraisalinfo + "," + "property ID: " + req.body.msid + "<br>");
+                
+                sails.log.info("Appraisal Successfully Inserted ==> " + record["response"]);
+
                 res.json(record);
 
      
