@@ -41,12 +41,28 @@ module.exports = {
             house_id: req.param("Houseid"),
             mortgage_value: req.param("Mortgagevalue")
           };
+
+          console.log("Reached here.");
+
           Broker.create(params)
-          .then(function(Broker){ 
-            console.log(Broker);
-            return  res.json({"response": "success" , id : Broker.id });
+          .then(async function(obj){
+            console.log("Reached here 2."); 
+
+            var findData = await Broker.find( {emp_email: params.emp_email} );
+              
+            sails.log.info(" Customer to Broker - Request - Customer Registration ==> "+ "Name: "+ req.body.Name, "," + "Address: "+ req.body.Address, "," + "Phone No: "+ req.body.Phoneno, "," + 
+            "City:" + req.body.City, "," + "Province: " + req.body.Province, "," + "Postal Code: "+ req.body.Zip, "," +
+            "Email ID: " + req.body.Email, "," + "Company Name: " +req.body.CompanyName + "<br>");
+
+            sails.log.info(" Customer to Broker - Response - Customer Registration ==> ", findData[findData.length-1] + "<br>");
+            return  res.json({"response": "success" , data : findData });
           })
-          .catch(err => res.serverError(err));
+          .catch(
+            err => {
+              res.serverError(err);
+              console.log("Error: ", err);
+            }
+            );
       } else {
         res.badRequest("The request wasnot successful - Bad Request.");
       }
@@ -67,6 +83,8 @@ module.exports = {
           }
           else
           {
+            sails.log.info(" Customer to Broker - Request: Mortgage Application Number ==> "+ req.body.AppNo + "<br>");
+            sails.log.info(" Customer to Broker - Response: application status ==> "+ Broker.applicationStatus + "<br>");
             return res.send(Broker);
           }
         })
@@ -107,6 +125,8 @@ module.exports = {
                               "private_key",
                               {expiresIn:"1h"}
                               );
+                            sails.log.info(" Customer to Broker - Request - Login: Mortgage Application Number ==> "+ req.body.app_no + "<br>");  
+                            sails.log.info("Successfully Logged In" + "<br>");
                             return res.send({"Message":"Authoriztion approved" ,  token:token});
                         }
                         else
@@ -115,14 +135,8 @@ module.exports = {
                         }
 
                     });
-
-
-
       }).catch(function(err){
         return res.json({ "Message": "Invalid Application ID" });
-      });
-  
-
-  
+      }); 
     }
   };

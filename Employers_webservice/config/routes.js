@@ -20,6 +20,7 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': { view: 'pages/homepage' },
+  '/employerLogs': {view : 'pages/employer_logs'},
   'POST /consent':'EmployerController.consent',
   'POST /auth' : 'EmployerController.loginAuthorization' ,
   'POST /chkAuth': 'EmployerController.chkAuth'

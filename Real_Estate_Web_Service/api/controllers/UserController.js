@@ -14,16 +14,20 @@ module.exports = {
         User.find({username:req.body.username}).exec(function(err, item) {
             if(item.length==0)
             {
+                sails.log.info("Invalid password");
                 return res.json({ "response": "Invalid Password" });
             }            
             
             if(item[0].password == req.body.password)
             {
                 item[0]["response"]="success";
+                sails.log.info(" Real estate user login authorization Request ==>" + "Username" + "," + req.body.username + "<br>");
+                sails.log.info(" Successfully logged In" + "<br>");
                 return res.json(item);
             }
             else
             {
+                sails.log.info("Invalid password");
                 return res.json({ "response": "Invalid Password" });
             }
         });

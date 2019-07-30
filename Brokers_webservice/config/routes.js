@@ -20,6 +20,7 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': { view: 'pages/homepage' },
+  '/brokerLogs': {view : 'pages/broker_logs'},
   'POST /formSubmission': 'BrokerFunctionsBoomController.formSubmissionBoom',
   'POST /getStatus': 'BrokerFunctionsBoomController.getApplicationStatus',
   '/broker/consent':'BrokerController.consent',

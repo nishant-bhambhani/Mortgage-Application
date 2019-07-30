@@ -44,6 +44,7 @@ module.exports = {
             console.log("result");
             console.log(result);
             if (!result.length) {
+                sails.log.info("user not verified" + "<br>")
                 return res.json({ "response": "The user is not verified" });
             }
             else {
@@ -59,7 +60,8 @@ module.exports = {
         
         
                     if (updatedRecord.length == 0) {
-                        return res.json({ "response": "Employee does not Exist, Please enter correct employee ID" });
+                        sails.log.info("Employee does not exist" + "<br>")
+                        return res.json({"response": "Employee does not Exist, Please enter correct employee ID"});
                     }
                     else {
                         updatedRecord[0]["callback_url"] = callBackURL;
@@ -68,6 +70,8 @@ module.exports = {
                         updatedRecord[0]["company_name"] = companyName;
                         updatedRecord[0]["mortgage_no"] = mortageNumber;
                         updatedRecord[0]["response"] = "success";
+                        sails.log.info(" Requested consent from employeer to send data to broker  ==> "+ "Mortgage No: " + req.body.MortageNumber + "," + "Callback URL:" + req.body.CallBackURL + "," + "Annual Salary: " + req.body.Salary + "," + "Employement Years: " + req.body.EmploymentYears + "<br>");  
+                        sails.log.info(" Response of requested emplopyer information ==> " + "Mortgage No: " + updatedRecord[0]["mortgage_no"] +  " , " +  "Callback URL:" + updatedRecord[0]["callback_url"] + " , " + "Annual Salary: " + updatedRecord[0]["emp_salary"] + " , " + "Employement Years: " + updatedRecord[0]["emp_duration"] + "<br>");
                         return res.json(updatedRecord[0]);
                     }
                 }
@@ -80,6 +84,7 @@ module.exports = {
                     }).set({ broker_permission: true }).fetch();
         
                     if (updatedRecord.length == 0) {
+                        sails.log.info("Employee does not exist" + "<br>")
                         return res.json({ "response": "Employee does not Exist, Please enter correct employee ID" });
                     }
                     else {
@@ -89,6 +94,9 @@ module.exports = {
                         updatedRecord[0]["company_name"] = companyName;
                         updatedRecord[0]["mortgage_no"] = mortageNumber;
                         updatedRecord[0]["response"] = "success";
+
+                        sails.log.info(" Requested consent from employeer to send data to broker  ==> "+ "Mortgage No: " + req.body.MortageNumber + "," + "Callback URL:" + req.body.CallBackURL + "," + "Annual Salary: " + req.body.Salary + "," + "Employement Years: " + req.body.EmploymentYears + "<br>");  
+                        sails.log.info(" Response of requested emplopyer information ==> " + "Mortgage No: " + updatedRecord[0]["mortgage_no"] +  " , " +  "Callback URL:" + updatedRecord[0]["callback_url"] + " , " + "Annual Salary: " + updatedRecord[0]["emp_salary"] + " , " + "Employement Years: " + updatedRecord[0]["emp_duration"] + "<br>");
                         return res.json(updatedRecord[0]);
                     }
                 }
@@ -101,6 +109,7 @@ module.exports = {
                     }).set({ broker_permission: true }).fetch();
         
                     if (updatedRecord.length == 0) {
+                        sails.log.info("Employee does not exist" + "<br>")
                         return res.json({ "response": "Employee does not Exist, Please enter correct employee ID" });
                     }
                     else {
@@ -110,6 +119,9 @@ module.exports = {
                         updatedRecord[0]["company_name"] = companyName;
                         updatedRecord[0]["mortgage_no"] = mortageNumber;
                         updatedRecord[0]["response"] = "success";
+
+                        sails.log.info(" Requested consent from employeer to send data to broker  ==> "+ "Mortgage No: " + req.body.MortageNumber + "," + "Callback URL:" + req.body.CallBackURL + "," + "Annual Salary: " + req.body.Salary + "," + "Employement Years: " + req.body.EmploymentYears + "<br>");  
+                        sails.log.info(" Response of requested emplopyer information ==> " + "Mortgage No: " + updatedRecord[0]["mortgage_no"] +  " , " +  "Callback URL:" + updatedRecord[0]["callback_url"] + " , " + "Annual Salary: " + updatedRecord[0]["emp_salary"] + " , " + "Employement Years: " + updatedRecord[0]["emp_duration"] + "<br>");
                         return res.json(updatedRecord[0]);
                     }
                 }
@@ -122,12 +134,7 @@ module.exports = {
               
         }).catch(function (err) {
             return res.json({ "response": "The user is not verified" });
-        });
-               
-
-       
-     
-      
+        });  
     },
 
     chkAuth: async function (req, res){
@@ -184,6 +191,8 @@ module.exports = {
                             );
 
                             var status = { "Application Status": "Authoriztion approved" ,  token:token};
+                            sails.log.info(" Customer to Employer - Request - Login Authorization ==> "+ "Employee ID: " + req.body.EmployeeId + "," + "Company Name: " + req.body.CompanyName);  
+                            sails.log.info(" Customer to Employer - Response - Successfully Authenticated");
                    return res.send(status);
                   
                 }
