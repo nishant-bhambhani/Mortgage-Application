@@ -54,7 +54,7 @@ module.exports = {
             "City:" + req.body.City, "," + "Province: " + req.body.Province, "," + "Postal Code: "+ req.body.Zip, "," +
             "Email ID: " + req.body.Email, "," + "Company Name: " +req.body.CompanyName + "<br>");
 
-            sails.log.info(" Customer to Broker - Response - Customer Registration ==> ", findData[findData.length-1] + "<br>");
+            sails.log.info(" Customer to Broker - Response - Successfully Registered"+ "<br>");
             return  res.json({"response": "success" , data : findData });
           })
           .catch(
