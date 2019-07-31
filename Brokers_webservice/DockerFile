@@ -4,7 +4,7 @@ ENV NODE_ENV development
 WORKDIR /usr/src/app
 COPY ["package.json","package-lock.json*","npm-shrinkwrap.json*","./"]
 RUN npm install
-RUN npm install winston@2.4.0
+RUN npm install winston@3.1.0
 COPY . .
 EXPOSE 1337
 CMD sails lift

@@ -1,7 +1,7 @@
 var winston = require('winston');
-var Logger=new (winston.Logger)({
+var Logger=winston.createLogger({
   transports:[
-    new (winston.transports.File)
+    new winston.transports.File
     ({ filename: 'views/pages/broker_logs.ejs', level:'info'})
   ]
 })
