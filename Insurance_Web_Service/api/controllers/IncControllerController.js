@@ -8,8 +8,10 @@
 module.exports = {
 
     addAppraisalInfo: async function(req, res) {
-      
-    
+
+        if(req.body){
+            var statusBoolean = req.body.firstname && req.body.lastname && req.body.mortid && req.body.appraisalinfo && req.body.msid;
+            if(!!statusBoolean){
                 var insurancePercentage = 40/100;
                 var decPercentage = 10/100;
                 var insVal = parseFloat(insurancePercentage) * req.body.appraisalinfo;
@@ -32,49 +34,17 @@ module.exports = {
                 sails.log.info("Appraisal Successfully Inserted ==> " + record["response"]);
 
                 res.json(record);
-
-     
-      },
-    // addInsuranceDetails: async function(req, res){
-
-    //    var updateVal = await Insurance.find({ 'id': req.body.mortid }).then( async function (result) {
-    //        console.log(result);
-    //        var insurancePercentage = 40/100;
-    //        console.log(parseFloat(insurancePercentage));
-         
-    //        var decPercentage = 10/100;
-    //        var insVal = parseFloat(insurancePercentage) * parseFloat(result[0]["appraisalinfo"]);
-    //        var decVal = parseFloat(decPercentage) * insVal;
-    //        console.log(decVal);
-    //        console.log(insVal);
-
-    //        var updatedRecord = await Insurance.update({
-    //         where: {
-
-    //             mortid: req.body.mortid
-    //         }
-    //     }).set({ 
-    //         insuredValue : insVal,
-    //         deductableValue: decVal
-
-    //      }).fetch();
-
-    //      if (updatedRecord.length == 0) {
-    //         return res.badRequest('Mortgage Id isnot correct.');
-           
-    //     }
-    //     else {
-    //         return res.json("Added the insurance details.");
-    //     }
-    //     }).catch(function(err){
-    //         return res.badRequest('Mortgage Id isnot correct.');
-    //     })
-
-    
-       
-        
-    // }
+  }
+  else {
+      sails.log.info("Bad Request");
+          res.badRequest('The request wasnot successful - Bad Request.');
+  }
   
-
+  }
+     else{
+        sails.log.info("Bad Request");
+        res.badRequest('The request wasnot successful - Bad Request.');
+     }      
+    },
 };
 

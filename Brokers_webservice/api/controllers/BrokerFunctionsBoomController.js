@@ -42,12 +42,8 @@ module.exports = {
             mortgage_value: req.param("Mortgagevalue")
           };
 
-          console.log("Reached here.");
-
           Broker.create(params)
           .then(async function(obj){
-            console.log("Reached here 2."); 
-
             var findData = await Broker.find( {emp_email: params.emp_email} );
               
             sails.log.info(" Customer to Broker - Request - Customer Registration ==> "+ "Name: "+ req.body.Name, "," + "Address: "+ req.body.Address, "," + "Phone No: "+ req.body.Phoneno, "," + 
@@ -64,6 +60,7 @@ module.exports = {
             }
             );
       } else {
+        sails.log.info("Bad Request");
         res.badRequest("The request wasnot successful - Bad Request.");
       }
     });
@@ -79,6 +76,7 @@ module.exports = {
 
           if (Broker == undefined) 
           {
+            sails.log.info("Wrong Application Number");
             return res.json({ Message: "Wrong Application Number" });
           }
           else
@@ -95,6 +93,7 @@ module.exports = {
           return res.json(err);
         });
     } else {
+      sails.log.info("Bad Request");
       res.badRequest("The request wasnot successful - Bad Request.");
     }
   },
@@ -117,7 +116,6 @@ module.exports = {
                         if(valid)
                         {
                           const jwt=require("jsonwebtoken");
-                         // console.log(result[0]);
                           const token=jwt.sign(
                               {appno: req.body.app_no,
                                 password: req.body.password
@@ -131,11 +129,13 @@ module.exports = {
                         }
                         else
                         {
+                            sails.log.info("Wrong Password");
                             res.json({"Message": "Wrong Password"})   
                         }
 
                     });
       }).catch(function(err){
+        sails.log.info("Invalid Application ID");
         return res.json({ "Message": "Invalid Application ID" });
       }); 
     }
