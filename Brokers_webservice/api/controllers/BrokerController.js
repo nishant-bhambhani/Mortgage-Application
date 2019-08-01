@@ -16,7 +16,7 @@ module.exports = {
         var mortageNumber = req.body.mortgage_no;
 
         sails.log.info(" Consent requested values from employer ==>" + "Name: " +empName+ "," + "Email: "+empEmail+ "," + "Salary: "+empSalary+ "," + "Duration: "+empDuration+
-            "," + "Mortgage number: "+mortageNumber + "<br>");
+            "," + "Mortgage number: "+mortageNumber);
 
         var updatedRecord = await Broker.update({where: {  
        

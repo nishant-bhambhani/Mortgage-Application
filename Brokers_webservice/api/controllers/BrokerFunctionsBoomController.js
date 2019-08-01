@@ -11,12 +11,12 @@ module.exports = {
     const jwt=require("jsonwebtoken");
     var decoded;
     try {
-        console.log("fin token1");
+        sails.log.info("Response ==> Success");
         decoded = jwt.verify(req.body.token, "private_key");
         return res.json({ "response": "success" });
 
       } catch(err) {
-        console.log("fin token2");
+        sails.log.info("The user is not verified");
         return res.json({ "response": "The user is not verified" });
       }
 },
@@ -48,15 +48,15 @@ module.exports = {
               
             sails.log.info(" Customer to Broker - Request - Customer Registration ==> "+ "Name: "+ req.body.Name, "," + "Address: "+ req.body.Address, "," + "Phone No: "+ req.body.Phoneno, "," + 
             "City:" + req.body.City, "," + "Province: " + req.body.Province, "," + "Postal Code: "+ req.body.Zip, "," +
-            "Email ID: " + req.body.Email, "," + "Company Name: " +req.body.CompanyName + "<br>");
+            "Email ID: " + req.body.Email, "," + "Company Name: " +req.body.CompanyName);
 
-            sails.log.info(" Customer to Broker - Response - Successfully Registered"+ "<br>");
+            sails.log.info(" Customer to Broker - Response - Successfully Registered");
             return  res.json({"response": "success" , data : findData });
           })
           .catch(
             err => {
+              sails.log.info("Error: ", err);
               res.serverError(err);
-              console.log("Error: ", err);
             }
             );
       } else {
@@ -81,15 +81,17 @@ module.exports = {
           }
           else
           {
-            sails.log.info(" Customer to Broker - Request: Mortgage Application Number ==> "+ req.body.AppNo + "<br>");
-            sails.log.info(" Customer to Broker - Response: application status ==> "+ Broker.applicationStatus + "<br>");
+            sails.log.info(" Customer to Broker - Request: Mortgage Application Number ==> "+ req.body.AppNo);
+            sails.log.info(" Customer to Broker - Response: application status ==> "+ Broker.applicationStatus);
             return res.send(Broker);
           }
         })
         .catch({ name: "UsageError" }, function(err) {
+          sails.log.info("Error: ", err);
           return res.json(err);
         })
         .catch(function(err) {
+          sails.log.info("Error: ", err);
           return res.json(err);
         });
     } else {
@@ -123,8 +125,9 @@ module.exports = {
                               "private_key",
                               {expiresIn:"1h"}
                               );
-                            sails.log.info(" Customer to Broker - Request - Login: Mortgage Application Number ==> "+ req.body.app_no + "<br>");  
-                            sails.log.info("Successfully Logged In" + "<br>");
+                            sails.log.info(" Customer to Broker - Request - Login: Mortgage Application Number ==> "+ req.body.app_no);  
+                            sails.log.info("Successfully Logged In");
+                            sails.log.info("Token Generated");
                             return res.send({"Message":"Authoriztion approved" ,  token:token});
                         }
                         else

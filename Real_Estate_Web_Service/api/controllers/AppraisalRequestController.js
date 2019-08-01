@@ -25,10 +25,11 @@ module.exports = {
             email:email
            
         }).then(AppraisalRequest => {
-            sails.log.info(" Appraisal Request ==> "+ "MSID: " + req.body.msid + "," + "Mortgage ID: " + req.body.mortid + "," + "Firstname: " + req.body.firstname + "," + "lastname: " + req.body.lastname + "," + "Email ID: " + req.body.email + "," + "Status: " + status + "<br>");
-            sails.log.info(" Appraisal Successfully Submitted" + "<br>");
+            sails.log.info(" Appraisal Request ==> "+ "MSID: " + req.body.msid + "," + "Mortgage ID: " + req.body.mortid + "," + "Firstname: " + req.body.firstname + "," + "lastname: " + req.body.lastname + "," + "Email ID: " + req.body.email + "," + "Status: " + status);
+            sails.log.info(" Appraisal Request Successfully Submitted");
             return res.json({ "response": "success" });
         }).catch(err => {
+            sails.log.info("Response ==> Error");
             return res.json({ "response": "error" });
         })
 
@@ -66,12 +67,13 @@ module.exports = {
         
         if(updatedRecord.length == 0)
         {
+            sails.log.info("Response ==> Error");
             return res.json({ "response": "error" });
         }
         else{
             updatedRecord[0]["response"] = "success";
-            sails.log.info(" Appraisal Evaluated ==> " + "Mortgage ID: " + "," +  req.body.mortid + "," + "Appraisal Amount: "+ req.body.appraisalinfo + "<br>"); 
-            sails.log.info(" Appraisal amount succesfully updated ==> " +  updatedRecord[0]["response"] + "<br>");
+            sails.log.info(" Appraisal Evaluated ==> " + "Mortgage ID: " + req.body.mortid + "," + "Appraisal Amount: "+ req.body.appraisalinfo); 
+            sails.log.info(" Appraisal amount succesfully updated ==> " +  updatedRecord[0]["response"]);
             return res.json(updatedRecord);
         }
 
