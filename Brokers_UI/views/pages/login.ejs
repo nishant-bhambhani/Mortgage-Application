@@ -26,7 +26,7 @@
          debugger;
           $.ajax({ 
             type: "POST" , 
-            url: "http://localhost:1337/auth", 
+            url: "https://brokerwebservice.herokuapp.com/auth", 
             data: JSON.stringify({"app_no": app_no.value, "password" : password.value }),
             dataType:"json", 
             contentType:"application/json", 

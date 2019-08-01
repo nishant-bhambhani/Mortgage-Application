@@ -9,7 +9,7 @@
        var  token = sessionStorage.getItem("verification_token");
        $.ajax({
       type: "POST",
-      url: "http://localhost:1337/chkAuth",
+      url: "https://employerservice.herokuapp.com/chkAuth",
       data: JSON.stringify({"token":token}),
       dataType:"json",
       contentType:"application/json",
@@ -60,10 +60,25 @@ else if(isNaN(salary) || salary=="")
     isValid=false;
     
 }
+else if(salary < 1)
+{
+    $("#title").html("Error");
+    $("#body").html("Salary Cannot be Zero or Less");
+    $("#validationModal").modal('show');   
+    isValid=false;
+
+}
 else if(isNaN(employmentYears) || employmentYears=="")
 {
     isValid=false;
     
+}
+else if(callBackURL!="https://prod-73.eastus.logic.azure.com/workflows/045dfb06a74f4403b66d426adc7b53d7/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=2JIVVc72lYQ5t5qEuOgUJkvpKlJ5SLllHSpfYfZ5qhY")
+{
+    isValid=false;
+    $("#title").html("Error");
+    $("#body").html("Invalid Call Back URL");
+    $("#validationModal").modal('show');     
 }
 
  if ($('#chkIsAgree').is(":checked"))
@@ -81,7 +96,7 @@ if(isValid)
 {
   $.ajax({
       type: "POST",
-      url: "http://localhost:1337/consent",
+      url: "https://employerservice.herokuapp.com/consent",
       data: JSON.stringify({"token":token,"EmployeeId":employeeId,"CompanyName":companyName, "MortageNumber":mortageNumber, "CallBackURL":callBackURL,"Salary":salary,"EmploymentYears":employmentYears}),
       dataType:"json",
       contentType:"application/json",

@@ -115,7 +115,7 @@ function checkSubmission()
 {
   $.ajax({
                 type: "GET",
-                url: "http://localhost:1337/AppraisalStatus",
+                url: "https://realestatewebservice.herokuapp.com/AppraisalStatus",
                 dataType: "json",
                 contentType: "application/json",
                 crossDomain: true,
@@ -159,7 +159,7 @@ function loadEvaluatedAppraisalList(){
   $("#tableContent").html(''); 
           $.ajax({
                 type: "GET",
-                url: "http://localhost:1337/AppraisalStatus",
+                url: "https://realestatewebservice.herokuapp.com/AppraisalStatus",
                 dataType: "json",
                 contentType: "application/json",
                 crossDomain: true,
@@ -176,7 +176,7 @@ function loadEvaluatedAppraisalList(){
                           obj[i].evaluatedBy="N/A";
                         }
                         strHtml = strHtml + '<tr><td>'+obj[i].msid+'</td><td>'+obj[i].mortid+'</td><td>'+obj[i].firstname+'</td><td>'+obj[i].lastname+'</td><td>'+obj[i].appraisalinfo+'</td><td>'+obj[i].status+'</td><td>'+obj[i].evaluatedBy+'</td><tr>';
-                  }
+                   }
                   strHtml = strHtml + "</html>";
                   $("#tableContent").html(strHtml);  
 
@@ -192,7 +192,7 @@ $("#frmRequestQuote").submit(function(e){
 
         $.ajax({
                 type: "POST",
-                url: "http://localhost:1337/requestAppraisal",
+                url: "https://realestatewebservice.herokuapp.com/requestAppraisal",
                 dataType: "json",
                 data: JSON.stringify({ "email":$("#email").val(), "msid": $("#MsID").val() ,"mortid":$("#MortID").val(),"firstname":$("#FirstName").val(),"lastname":$("#LastName").val() }),
                 contentType: "application/json",
