@@ -27,12 +27,12 @@ module.exports = {
       
         if(updatedRecord.length>0)
         {
-            sails.log.info(" Update Broker data after receiving information from employer ==> Broker Data Successfully Updated" + "<br>");
+            sails.log.info(" Update Broker data after receiving information from employer ==> Broker Data Successfully Updated");
             return res.json({"response":"success"});
         }
         else
         {
-            sails.log.info(" Update Broker data after receiving information from employer ==> Invalid Mortgage Number" + "<br>");
+            sails.log.info("Invalid Mortgage Number");
             return res.json({"response":"Invalid Mortgage Number"});
         }
     },   

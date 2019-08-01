@@ -28,10 +28,10 @@ module.exports = {
                 record["response"]="success";
                 record["email"]=req.body.email;
 
-                sails.log.info(" Insert Appraisal data ==> " + "Firstname: " + req.body.firstname + "," + "Lastname: " + req.body.lastname
-                + "," + "Mortgage ID: " + req.body.mortid + "," + "Appraisal Amount: " + req.body.appraisalinfo + "," + "property ID: " + req.body.msid + "<br>");
+                sails.log.info(" Insert Appraisal Info ==> " + "Firstname: " + req.body.firstname + "," + "Lastname: " + req.body.lastname
+                + "," + "Mortgage ID: " + req.body.mortid + "," + "Appraisal Amount: " + req.body.appraisalinfo + "," + "property ID: " + req.body.msid);
                 
-                sails.log.info("Appraisal Successfully Inserted ==> " + record["response"]);
+                sails.log.info("Appraisal Info Successfully Inserted ==> " + record["response"]);
 
                 res.json(record);
   }
