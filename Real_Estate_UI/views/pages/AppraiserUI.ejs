@@ -77,7 +77,7 @@ function loadRequestAppraisalList(){
   $("#tableContent").html('');
           $.ajax({
                 type: "GET",
-                url: "http://localhost:1337/listRequestAppraisal",
+                url: "https://realestatewebservice.herokuapp.com/listRequestAppraisal",
                 dataType: "json",
                 contentType: "application/json",
                 crossDomain: true,
@@ -105,7 +105,7 @@ function loadEvaluatedAppraisalList(){
   $("#tableContent").html(''); 
           $.ajax({
                 type: "GET",
-                url: "http://localhost:1337/listEvaluatedAppraisal",
+                url: "https://realestatewebservice.herokuapp.com/listEvaluatedAppraisal",
                 dataType: "json",
                 contentType: "application/json",
                 crossDomain: true,
@@ -130,7 +130,7 @@ function saveAppraiserInfo(val)
  {
           $.ajax({
                 type: "POST",
-                url: "http://localhost:1337/evaluate",
+                url: "https://realestatewebservice.herokuapp.com/evaluate",
                 dataType: "json",
                 data: JSON.stringify({ "mortid": val,"appraisalinfo":appraisalAmount }),
                 contentType: "application/json",

@@ -70,7 +70,7 @@
     var  token = sessionStorage.getItem("broker_token");
        $.ajax({
       type: "POST",
-      url: "http://localhost:1337/chkAuth",
+      url: "https://brokerwebservice.herokuapp.com/chkAuth",
       data: JSON.stringify({"token":token}),
       dataType:"json",
       contentType:"application/json",
@@ -93,7 +93,7 @@
     var appno = document.getElementById("appno").value;
     $.ajax({
       type: "POST",
-      url: "http://localhost:1337/getStatus",
+      url: "https://brokerwebservice.herokuapp.com/getStatus",
       data: JSON.stringify({"AppNo": appno}),
       dataType: "json",
       contentType: "application/json",

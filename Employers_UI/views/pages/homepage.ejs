@@ -21,7 +21,7 @@
         return false; } 
         $.ajax({ 
           type: "POST" , 
-          url: "http://localhost:1337/auth", 
+          url: "https://employerservice.herokuapp.com/auth", 
           data: JSON.stringify({"EmployeeId": emp_id.value, "Password" : password.value,"CompanyName": $('#droplist').val()}),
           dataType:"json", 
           contentType:"application/json", 

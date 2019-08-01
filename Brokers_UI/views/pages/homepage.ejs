@@ -164,7 +164,7 @@ $("#btnOk").click(function(){
           {
           $.ajax({
               type: "POST",
-              url: "http://localhost:1337/formSubmission",
+              url: "https://brokerwebservice.herokuapp.com/formSubmission",
               data: JSON.stringify({ "Name": name, "Email": email, "Password": pass, "Address": address, "City": city, "Province": province, "Zip": zip, "Phoneno": phone, "Mortgagevalue":mortgagevalue, "Houseid":houseid, "CompanyName": strUser }),
               dataType: "json",
               contentType: "application/json",
